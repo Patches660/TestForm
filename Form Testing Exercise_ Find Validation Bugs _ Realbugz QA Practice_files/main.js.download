@@ -1,0 +1,53 @@
+// Slider for Salary Range
+document.addEventListener('DOMContentLoaded', function() {
+    const rangeInput = document.getElementById('range');
+    const rangeValue = document.getElementById('rangeValue');
+
+    if (rangeInput && rangeValue) {
+        // Update value on page load
+        rangeValue.textContent = rangeInput.value;
+
+        // Update value when slider moves
+        rangeInput.addEventListener('input', function() {
+            rangeValue.textContent = this.value;
+        });
+    }
+
+    // Fix: Limit Date of Birth to prevent future dates
+    const dobInput = document.getElementById('dob');
+    if (dobInput) {
+        const today = new Date().toISOString().split('T')[0];
+        dobInput.max = today;
+    }
+});
+
+// Form submission processing with validation checks
+document.getElementById('expeditionForm').addEventListener('submit', function(e) {
+    // Prevent default submission
+    e.preventDefault();
+
+    // Fix: Check if at least one role checkbox is checked
+    const roles = document.querySelectorAll('input[name="role"]:checked');
+    if (roles.length === 0) {
+        alert('Please select at least one Preferred Role in the Expedition.');
+        return;
+    }
+
+    // Fix: Age validation (Must be at least 18 years old)
+    const dobValue = document.getElementById('dob').value;
+    if (dobValue) {
+        const dob = new Date(dobValue);
+        const today = new Date();
+        let age = today.getFullYear() - dob.getFullYear();
+        const monthDiff = today.getMonth() - dob.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+            age--;
+        }
+        if (age < 18) {
+            alert('You must be at least 18 years old to register for the expedition.');
+            return;
+        }
+    }
+
+    alert('The form has been successfully validated and submitted!');
+});
