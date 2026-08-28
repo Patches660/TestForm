@@ -51,12 +51,24 @@ header {
     max-width: 800px;
     padding: 0 24px;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
 }
 
-.logo {
-    height: 40px;
-    width: auto;
+/* Brand Text Logo (Purple & Gold Luxury Style) */
+.logo-text {
+    font-family: 'Cinzel', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--bright-gold);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-shadow: 0 2px 4px rgba(60, 9, 108, 0.3);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.logo-text:hover {
+    color: #FFD700;
 }
 
 /* Main Layout */

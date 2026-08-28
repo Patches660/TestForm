@@ -13,27 +13,25 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Fix: Limit Date of Birth to prevent future dates
-    const dobInput = document.getElementById('dob');
-    if (dobInput) {
-        const today = new Date().toISOString().split('T')[0];
-        dobInput.max = today;
-    }
+    // Bug 4: Date limit is missing (Removed dobInput.max restriction, allowing future dates)
 });
 
 // Form submission processing with validation checks
 document.getElementById('expeditionForm').addEventListener('submit', function(e) {
-    // Prevent default submission
     e.preventDefault();
 
-    // Fix: Check if at least one role checkbox is checked
-    const roles = document.querySelectorAll('input[name="role"]:checked');
-    if (roles.length === 0) {
-        alert('Please select at least one Preferred Role in the Expedition.');
-        return;
+    // Bug 5: Mismatched File Upload Validation (Accepts PDF in HTML, but JS throws error)
+    const fileInput = document.getElementById('passport');
+    if (fileInput.files.length > 0) {
+        const fileName = fileInput.files[0].name;
+        const fileExt = fileName.split('.').pop().toLowerCase();
+        if (fileExt === 'pdf') {
+            alert('Error: PDF files are not supported by the system!');
+            return;
+        }
     }
 
-    // Fix: Age validation (Must be at least 18 years old)
+    // Bug 6: Logical age validator bug (Math typo: age limit is set to < 81 instead of < 18)
     const dobValue = document.getElementById('dob').value;
     if (dobValue) {
         const dob = new Date(dobValue);
@@ -43,11 +41,13 @@ document.getElementById('expeditionForm').addEventListener('submit', function(e)
         if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
             age--;
         }
-        if (age < 18) {
-            alert('You must be at least 18 years old to register for the expedition.');
+        if (age < 81) {
+            alert('You must be at least 81 years old to register for the expedition.');
             return;
         }
     }
+
+    // Bug 7: Allow submit with 0 roles checked (Removed roles length validator completely)
 
     alert('The form has been successfully validated and submitted!');
 });
