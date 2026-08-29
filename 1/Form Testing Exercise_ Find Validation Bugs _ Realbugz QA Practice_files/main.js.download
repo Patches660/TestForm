@@ -161,19 +161,100 @@ window.setLanguage = function(lang) {
     updateSalaryHint();
 };
 
-// Helper: Sets slider value and updates display
-window.setSliderValue = function(val) {
+// Custom HTML Slider Dragging & Clicking Logic
+function initCustomSlider() {
+    const track = document.getElementById('custom-slider-track');
+    const thumb = document.getElementById('custom-slider-thumb');
+    const fill = document.getElementById('custom-slider-fill');
     const rangeInput = document.getElementById('range');
     const rangeValue = document.getElementById('rangeValue');
-    if (rangeInput && rangeValue) {
+
+    if (!track || !thumb || !fill) return;
+
+    let isDragging = false;
+    let prevVal = 700;
+    const marks = [
+        { id: 'mark-900', value: 900 },
+        { id: 'mark-1125', value: 1125 },
+        { id: 'mark-1550', value: 1550 }
+    ];
+
+    // Helper to update slider values and UI
+    window.setCustomSliderValue = function(val) {
+        val = Math.max(700, Math.min(2250, val));
         rangeInput.value = val;
         rangeValue.textContent = val;
-        // Trigger star pop explicitly
+
+        const pct = (val - 700) / 1550;
+        thumb.style.left = (pct * 100) + '%';
+        fill.style.width = (pct * 100) + '%';
+
+        // Trigger star pop on target values
         if (val === 900) triggerStarPop('mark-900');
         if (val === 1125) triggerStarPop('mark-1125');
         if (val === 1550) triggerStarPop('mark-1550');
+
+        prevVal = val;
+    };
+
+    function updateValueFromCoords(clientX) {
+        const rect = track.getBoundingClientRect();
+        let pct = (clientX - rect.left) / rect.width;
+        pct = Math.max(0, Math.min(1, pct));
+        
+        const currentVal = Math.round(700 + pct * 1550);
+        rangeInput.value = currentVal;
+        rangeValue.textContent = currentVal;
+        thumb.style.left = (pct * 100) + '%';
+        fill.style.width = (pct * 100) + '%';
+
+        // Check if value crossed thresholds
+        marks.forEach(mark => {
+            const crossed = (prevVal < mark.value && currentVal >= mark.value) || 
+                            (prevVal > mark.value && currentVal <= mark.value) ||
+                            (currentVal === mark.value);
+            if (crossed && prevVal !== currentVal) {
+                triggerStarPop(mark.id);
+            }
+        });
+
+        prevVal = currentVal;
     }
-};
+
+    track.addEventListener('mousedown', function(e) {
+        isDragging = true;
+        updateValueFromCoords(e.clientX);
+        e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', function(e) {
+        if (!isDragging) return;
+        updateValueFromCoords(e.clientX);
+    });
+
+    document.addEventListener('mouseup', function() {
+        isDragging = false;
+    });
+
+    // Touch events for mobile screens
+    track.addEventListener('touchstart', function(e) {
+        isDragging = true;
+        updateValueFromCoords(e.touches[0].clientX);
+        e.preventDefault();
+    });
+
+    document.addEventListener('touchmove', function(e) {
+        if (!isDragging) return;
+        updateValueFromCoords(e.touches[0].clientX);
+    });
+
+    document.addEventListener('touchend', function() {
+        isDragging = false;
+    });
+
+    // Initialize default value
+    setCustomSliderValue(700);
+}
 
 // Helper: Triggers star bounce animation
 window.triggerStarPop = function(id) {

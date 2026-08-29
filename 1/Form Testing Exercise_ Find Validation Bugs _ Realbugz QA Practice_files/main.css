@@ -291,7 +291,8 @@ textarea:focus {
 }
 
 /* Range Slider */
-input[type="range"] {
+/* input[type="range"] removed */ 
+/*
     width: 100%;
     accent-color: var(--accent-purple);
     margin-top: 10px;
@@ -524,59 +525,93 @@ footer p {
     transition: all 0.3s ease;
 }
 
-/* Slider Experience Marks and Star Pop Animation - Centered Inside Track */
-.slider-container {
+/* Custom HTML Slider Styling */
+.custom-slider-container {
     position: relative;
     width: 100%;
-    margin-top: 14px;
-    padding-bottom: 24px; /* Space for the labels underneath the slider */
+    margin-top: 24px;
+    padding-bottom: 28px; /* Space for the labels underneath */
+    user-select: none;
 }
-input[type="range"] {
-    width: 100%;
-    height: 20px;
-    margin: 0;
+.custom-slider-track {
     position: relative;
-    z-index: 1; /* Slider sits in front for easy dragging */
+    width: 100%;
+    height: 6px;
+    background: #E5DFEC;
+    border-radius: 3px;
+    cursor: pointer;
 }
+.custom-slider-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-purple), var(--hover-purple));
+    border-radius: 3px;
+    width: 0%; /* Updated dynamically */
+}
+.custom-slider-thumb {
+    position: absolute;
+    top: 50%;
+    left: 0%; /* Updated dynamically */
+    transform: translate(-50%, -50%);
+    width: 18px;
+    height: 18px;
+    background: var(--accent-purple);
+    border: 2px solid var(--bright-gold);
+    border-radius: 50%;
+    cursor: grab;
+    z-index: 10;
+    box-shadow: 0 2px 6px rgba(123, 44, 191, 0.3);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.custom-slider-thumb:active {
+    cursor: grabbing;
+    transform: translate(-50%, -50%) scale(1.25);
+    box-shadow: 0 0 12px var(--bright-gold);
+}
+
+/* Slider Experience Marks Overlaying Track */
 .slider-marks-container {
     position: absolute;
-    top: 9px; /* Centered vertically on the slider track line */
+    top: 50%;
     left: 0;
     width: 100%;
     height: 0;
-    pointer-events: none; /* Let dragging click pass through */
-    z-index: 2; /* Put circles directly on the track line */
+    pointer-events: none;
+    z-index: 5;
 }
 .slider-mark {
     position: absolute;
-    transform: translateX(-50%);
+    top: 0;
+    transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
     align-items: center;
     pointer-events: none;
 }
 .mark-circle {
-    width: 8px; /* Compact circle fitting inside the slider track line */
-    height: 8px;
+    width: 10px;
+    height: 10px;
     background: #FFFFFF;
-    border: 1.5px solid var(--accent-purple);
+    border: 2px solid var(--accent-purple);
     border-radius: 50%;
     cursor: pointer;
-    pointer-events: auto; /* Clickable circle to jump slider to value */
+    pointer-events: auto; /* Clickable */
     transition: all 0.25s ease;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
 }
 .slider-mark:hover .mark-circle {
     transform: scale(1.4);
     background: var(--bright-gold);
     border-color: var(--bright-gold);
-    box-shadow: 0 0 6px var(--bright-gold);
+    box-shadow: 0 0 8px var(--bright-gold);
 }
 .mark-label {
     font-size: 10px;
     font-weight: 700;
     color: var(--text-muted);
-    margin-top: 12px; /* Push labels below the slider line */
+    margin-top: 14px; /* Space out below track */
     white-space: nowrap;
     text-align: center;
     transition: color 0.25s ease;
@@ -585,15 +620,17 @@ input[type="range"] {
 .slider-mark:hover .mark-label {
     color: var(--primary-purple);
 }
+
+/* Star Pop Animation Styling */
 .star-pop {
     position: absolute;
-    top: -20px;
+    top: -22px;
     font-size: 18px;
     color: var(--bright-gold);
     opacity: 0;
     pointer-events: none;
     transform: scale(0);
-    z-index: 10;
+    z-index: 12;
 }
 .star-pop.animate {
     animation: starBounce 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
@@ -604,16 +641,16 @@ input[type="range"] {
         opacity: 0;
     }
     30% {
-        transform: scale(1.6) translateY(-20px);
+        transform: scale(1.6) translateY(-22px);
         opacity: 1;
-        text-shadow: 0 0 8px rgba(212, 175, 55, 0.9);
+        text-shadow: 0 0 8px rgba(212, 175, 55, 0.95);
     }
     85% {
-        transform: scale(1) translateY(-28px);
+        transform: scale(1) translateY(-30px);
         opacity: 0.7;
     }
     100% {
-        transform: scale(0) translateY(-34px);
+        transform: scale(0) translateY(-36px);
         opacity: 0;
     }
 }
