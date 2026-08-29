@@ -525,20 +525,20 @@ footer p {
     transition: all 0.3s ease;
 }
 
-/* Custom HTML Slider Styling */
+/* Custom HTML Slider Styling - Purple & Gold Edition */
 .custom-slider-container {
     position: relative;
-    width: 100%;
+    width: 100% !important; /* Forces full width stretch */
     margin-top: 24px;
     padding-bottom: 28px; /* Space for the labels underneath */
     user-select: none;
 }
 .custom-slider-track {
     position: relative;
-    width: 100%;
-    height: 6px;
-    background: #E5DFEC;
-    border-radius: 3px;
+    width: 100% !important; /* Explicitly forces track to stretch to the right edge */
+    height: 8px; /* Thicker track line */
+    background: #E8DFF5; /* Pastel Purple track background */
+    border-radius: 4px;
     cursor: pointer;
 }
 .custom-slider-fill {
@@ -546,8 +546,8 @@ footer p {
     left: 0;
     top: 0;
     height: 100%;
-    background: linear-gradient(90deg, var(--accent-purple), var(--hover-purple));
-    border-radius: 3px;
+    background: linear-gradient(90deg, #7B2CBF, #5A189A); /* Rich purple fill */
+    border-radius: 4px;
     width: 0%; /* Updated dynamically */
 }
 .custom-slider-thumb {
@@ -555,19 +555,19 @@ footer p {
     top: 50%;
     left: 0%; /* Updated dynamically */
     transform: translate(-50%, -50%);
-    width: 18px;
-    height: 18px;
-    background: var(--accent-purple);
-    border: 2px solid var(--bright-gold);
+    width: 20px; /* Thicker thumb */
+    height: 20px;
+    background: #7B2CBF; /* Solid Purple thumb */
+    border: 2px solid var(--bright-gold); /* Gold border */
     border-radius: 50%;
     cursor: grab;
     z-index: 10;
-    box-shadow: 0 2px 6px rgba(123, 44, 191, 0.3);
+    box-shadow: 0 2px 8px rgba(123, 44, 191, 0.4);
     transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 .custom-slider-thumb:active {
     cursor: grabbing;
-    transform: translate(-50%, -50%) scale(1.25);
+    transform: translate(-50%, -50%) scale(1.2);
     box-shadow: 0 0 12px var(--bright-gold);
 }
 
@@ -576,7 +576,7 @@ footer p {
     position: absolute;
     top: 50%;
     left: 0;
-    width: 100%;
+    width: 100% !important; /* Matches full track width */
     height: 0;
     pointer-events: none;
     z-index: 5;
@@ -591,34 +591,34 @@ footer p {
     pointer-events: none;
 }
 .mark-circle {
-    width: 10px;
-    height: 10px;
-    background: #FFFFFF;
-    border: 2px solid var(--accent-purple);
+    width: 14px; /* Larger circles that bulge out of the track line */
+    height: 14px;
+    background: #7B2CBF; /* Solid Purple circle background! */
+    border: 2.5px solid var(--bright-gold); /* Prominent Gold border! */
     border-radius: 50%;
     cursor: pointer;
     pointer-events: auto; /* Clickable */
     transition: all 0.25s ease;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.25);
 }
 .slider-mark:hover .mark-circle {
-    transform: scale(1.4);
+    transform: scale(1.3);
     background: var(--bright-gold);
-    border-color: var(--bright-gold);
+    border-color: #FFFFFF;
     box-shadow: 0 0 8px var(--bright-gold);
 }
 .mark-label {
     font-size: 10px;
     font-weight: 700;
-    color: var(--text-muted);
-    margin-top: 14px; /* Space out below track */
+    color: var(--primary-purple); /* Purple text labels */
+    margin-top: 16px; /* Push labels below track */
     white-space: nowrap;
     text-align: center;
     transition: color 0.25s ease;
     pointer-events: none;
 }
 .slider-mark:hover .mark-label {
-    color: var(--primary-purple);
+    color: var(--accent-purple);
 }
 
 /* Star Pop Animation Styling */
