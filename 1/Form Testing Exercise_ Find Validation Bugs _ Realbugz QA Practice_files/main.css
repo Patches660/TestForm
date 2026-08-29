@@ -377,13 +377,16 @@ input[type="range"] {
 /* Buttons styling with Glow effects */
 .button-group {
     display: flex;
+    flex-wrap: wrap; /* Allows wrap if content overflows */
     gap: 16px;
     margin-top: 36px;
+    width: 100%;
 }
 
 button {
-    flex: 1;
-    padding: 14px 24px;
+    flex: 1 1 200px; /* Grow, shrink, and base width of 200px to allow responsive wrapping */
+    min-width: 150px;
+    padding: 14px 16px; /* Reduced side padding slightly to prevent text clipping */
     font-size: 14px;
     font-weight: 700;
     border-radius: 6px;
@@ -391,6 +394,19 @@ button {
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     text-transform: uppercase;
     letter-spacing: 0.06em;
+    white-space: normal; /* Allow text wrapping if needed */
+    word-wrap: break-word;
+}
+
+@media (max-width: 576px) {
+    .button-group {
+        flex-direction: column;
+        gap: 12px;
+    }
+    button {
+        width: 100%;
+        flex: none;
+    }
 }
 
 .btn-submit {
