@@ -3,7 +3,7 @@ const i18n = {
     en: {
         "title": "Register for the Expedition in search of Eldoria",
         "subtitle": "Please fill in the details below to submit your application for the historic journey.",
-        "label-id": "Applicant ID* (Format: ELD-xxxx)",
+        "label-id": "Applicant ID*",
         "label-first-name": "First Name*",
         "label-last-name": "Last Name*",
         "label-email": "Email*",
@@ -49,7 +49,7 @@ const i18n = {
     th: {
         "title": "ลงทะเบียนเข้าร่วมทีมสำรวจเพื่อค้นหาเอลโดเรีย",
         "subtitle": "โปรดกรอกรายละเอียดด้านล่างเพื่อยื่นใบสมัครสำหรับการเดินทางประวัติศาสตร์",
-        "label-id": "รหัสผู้สมัคร* (รูปแบบ: ELD-xxxx)",
+        "label-id": "รหัสผู้สมัคร*",
         "label-first-name": "ชื่อ*",
         "label-last-name": "นามสกุล*",
         "label-email": "อีเมล*",
@@ -84,7 +84,7 @@ const i18n = {
         "label-terms": "ฉันยอมรับข้อตกลงและเงื่อนไข*",
         "btn-submit": "ส่งใบสมัคร",
         "btn-reset": "ล้างข้อมูล",
-        // Bug 9: Placeholder Swapping Glitch in Thai language
+        // i18n bug: Placeholder Swapping Glitch in Thai language
         "placeholder-id": "เช่น ELD-1234",
         "placeholder-first-name": "เช่น นามสกุล",  // Swapped placeholder! (Should be ชื่อ)
         "placeholder-last-name": "เช่น ชื่อต้น",   // Swapped placeholder! (Should be นามสกุล)
@@ -111,7 +111,6 @@ window.setLanguage = function(lang) {
         const text = i18n[lang][key];
         if (text) {
             if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                // Handle placeholders for input elements
                 if (key.startsWith('placeholder-')) {
                     el.placeholder = text;
                 }
@@ -135,10 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const rangeValue = document.getElementById('rangeValue');
 
     if (rangeInput && rangeValue) {
-        // Update value on page load
         rangeValue.textContent = rangeInput.value;
-
-        // Update value when slider moves
         rangeInput.addEventListener('input', function() {
             rangeValue.textContent = this.value;
         });
@@ -146,8 +142,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize with English
     setLanguage('en');
-    
-    // Bug 4: Date limit is missing (No dobInput.max restriction, allowing future dates)
 });
 
 // Form submission processing with validation checks
@@ -155,7 +149,7 @@ document.getElementById('expeditionForm').addEventListener('submit', function(e)
     e.preventDefault();
 
     // Bug 8: Applicant ID validation mismatch
-    // The label says format is ELD-xxxx (4 digits), but JS regex validates for ELD-xxx (3 digits)
+    // The label says Applicant ID but JS regex validates for ELD-xxx (3 digits) instead of ELD-xxxx (4 digits)
     const applicantId = document.getElementById('applicantId').value;
     const idRegex = /^ELD-[0-9]{3}$/; // Validates only 3 digits!
     if (!idRegex.test(applicantId)) {
@@ -167,22 +161,20 @@ document.getElementById('expeditionForm').addEventListener('submit', function(e)
         return;
     }
 
-    // Bug 5: Mismatched File Upload Validation (Accepts PDF in HTML, but JS throws error)
-    const fileInput = document.getElementById('passport');
-    if (fileInput.files.length > 0) {
-        const fileName = fileInput.files[0].name;
-        const fileExt = fileName.split('.').pop().toLowerCase();
-        if (fileExt === 'pdf') {
-            if (currentLanguage === 'th') {
-                alert('ข้อผิดพลาด: ระบบไม่รองรับไฟล์ PDF!');
-            } else {
-                alert('Error: PDF files are not supported by the system!');
-            }
-            return;
+    // FIXED: Removed Bug 5 (Passport PDF block check is deleted. PDF files upload successfully now.)
+
+    // FIXED: Requires at least one role checkbox to be checked (Fixed Bug 7)
+    const roles = document.querySelectorAll('input[name="role"]:checked');
+    if (roles.length === 0) {
+        if (currentLanguage === 'th') {
+            alert('โปรดเลือกบทบาทหน้าที่ในคณะสำรวจอย่างน้อย 1 อย่าง');
+        } else {
+            alert('Please select at least one Preferred Role in the Expedition.');
         }
+        return;
     }
 
-    // Bug 6: Logical age validator bug (Math typo: age limit is set to < 81 instead of < 18)
+    // FIXED: Corrected age validator logic limit to 18 years old (Fixed Bug 6)
     const dobValue = document.getElementById('dob').value;
     if (dobValue) {
         const dob = new Date(dobValue);
@@ -192,17 +184,15 @@ document.getElementById('expeditionForm').addEventListener('submit', function(e)
         if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
             age--;
         }
-        if (age < 81) {
+        if (age < 18) {
             if (currentLanguage === 'th') {
-                alert('คุณต้องมีอายุอย่างน้อย 81 ปีเพื่อลงทะเบียนเข้าร่วมการเดินทางสำรวจ');
+                alert('คุณต้องมีอายุอย่างน้อย 18 ปีเพื่อลงทะเบียนเข้าร่วมการเดินทางสำรวจ');
             } else {
-                alert('You must be at least 81 years old to register for the expedition.');
+                alert('You must be at least 18 years old to register for the expedition.');
             }
             return;
         }
     }
-
-    // Bug 7: Allow submit with 0 roles checked (No roles check)
 
     if (currentLanguage === 'th') {
         alert('ส่งแบบฟอร์มลงทะเบียนสำเร็จ!');
