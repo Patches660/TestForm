@@ -84,7 +84,7 @@ const i18n = {
         "label-terms": "ฉันยอมรับข้อตกลงและเงื่อนไข*",
         "btn-submit": "ส่งใบสมัคร",
         "btn-reset": "ล้างข้อมูล",
-        // i18n bug: Placeholder Swapping Glitch in Thai language
+        // Test Bug 2: Placeholder Swapping Glitch in Thai language (i18n bug)
         "placeholder-id": "เช่น ELD-1234",
         "placeholder-first-name": "เช่น นามสกุล",  // Swapped placeholder! (Should be ชื่อ)
         "placeholder-last-name": "เช่น ชื่อต้น",   // Swapped placeholder! (Should be นามสกุล)
@@ -142,13 +142,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize with English
     setLanguage('en');
+
+    // FIXED: Date limit is now restricted to prevent future dates (Fixing Date of Birth bug)
+    const dobInput = document.getElementById('dob');
+    if (dobInput) {
+        const today = new Date().toISOString().split('T')[0];
+        dobInput.max = today;
+    }
 });
 
 // Form submission processing with validation checks
 document.getElementById('expeditionForm').addEventListener('submit', function(e) {
     e.preventDefault();
 
-    // Bug 8: Applicant ID validation mismatch
+    // Test Bug 1: Applicant ID validation mismatch
     // The label says Applicant ID but JS regex validates for ELD-xxx (3 digits) instead of ELD-xxxx (4 digits)
     const applicantId = document.getElementById('applicantId').value;
     const idRegex = /^ELD-[0-9]{3}$/; // Validates only 3 digits!
@@ -161,9 +168,19 @@ document.getElementById('expeditionForm').addEventListener('submit', function(e)
         return;
     }
 
-    // FIXED: Removed Bug 5 (Passport PDF block check is deleted. PDF files upload successfully now.)
+    // Test Bug 3: Professional Experience Certification Mismatch
+    // Blocks submission requesting a certificate, but no upload field for certificates exists.
+    const experience = document.getElementById('experience').value;
+    if (experience === 'professional') {
+        if (currentLanguage === 'th') {
+            alert('ข้อผิดพลาด: ประสบการณ์ระดับมืออาชีพจำเป็นต้องอัปโหลดใบรับรองความเชี่ยวชาญเพิ่มเติม!');
+        } else {
+            alert('Error: Professional experience requires uploading an additional certification of expertise!');
+        }
+        return;
+    }
 
-    // FIXED: Requires at least one role checkbox to be checked (Fixed Bug 7)
+    // Requires at least one role checkbox to be checked (Normal functioning validation)
     const roles = document.querySelectorAll('input[name="role"]:checked');
     if (roles.length === 0) {
         if (currentLanguage === 'th') {
@@ -174,7 +191,7 @@ document.getElementById('expeditionForm').addEventListener('submit', function(e)
         return;
     }
 
-    // FIXED: Corrected age validator logic limit to 18 years old (Fixed Bug 6)
+    // Corrected age validator logic limit to 18 years old (Normal functioning validation)
     const dobValue = document.getElementById('dob').value;
     if (dobValue) {
         const dob = new Date(dobValue);
