@@ -415,3 +415,45 @@ document.getElementById('expeditionForm').addEventListener('submit', function(e)
         alert('The form has been successfully validated and submitted!');
     }
 });
+
+// Form Auto-fill Logic for QA testing
+window.autoFillForm = function() {
+    document.getElementById('applicantId').value = '0000000000';
+    document.getElementById('firstName').value = 'AAAAAAAAAAAA';
+    document.getElementById('lastName').value = 'AAAAAA';
+    document.getElementById('email').value = 'oavatan@gmail.com';
+    document.getElementById('contactNumber').value = '0000000000';
+    document.getElementById('dob').value = '2005-08-21';
+    
+    // Select Archaeology Experience
+    document.getElementById('experience').value = 'professional';
+    if (window.updateSalaryHint) {
+        window.updateSalaryHint();
+    }
+    
+    // Select preferred role: Medic
+    document.querySelectorAll('input[name="role"]').forEach(cb => cb.checked = false);
+    const medicCheckbox = document.getElementById('medic');
+    if (medicCheckbox) {
+        medicCheckbox.checked = true;
+    }
+    
+    // Select Preferred Expedition Region: Universe
+    const universeRadio = document.getElementById('universe');
+    if (universeRadio) {
+        universeRadio.checked = true;
+    }
+    
+    // Set custom slider value to 2000
+    if (window.setCustomSliderValue) {
+        window.setCustomSliderValue(2000);
+    }
+    
+    // Void the required check for Passport/ID upload
+    const passportInput = document.getElementById('passport');
+    if (passportInput) {
+        passportInput.removeAttribute('required');
+    }
+    
+    console.log("Form auto-filled and Passport upload requirement set to void!");
+};
