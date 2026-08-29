@@ -514,3 +514,12 @@ footer p {
     color: var(--text-muted) !important; /* Becomes visible */
     transition-delay: 3s; /* Only displays after hovering for at least 3 seconds! */
 }
+
+/* Salary limit hint text */
+.salary-limit-hint {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent-purple);
+    margin-top: 6px;
+    transition: all 0.3s ease;
+}

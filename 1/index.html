@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     
     <!-- Stylesheet with Cache Buster (?v=3) -->
-    <link rel="stylesheet" href="./Form Testing Exercise_ Find Validation Bugs _ Realbugz QA Practice_files/main.css?v=16">
+    <link rel="stylesheet" href="./Form Testing Exercise_ Find Validation Bugs _ Realbugz QA Practice_files/main.css?v=17">
 </head>
 <body>
     <!-- Floating Magical Orbs for animated background -->
@@ -87,12 +87,13 @@
 
                     <div class="form-group">
                         <label for="experience" data-i18n="label-exp">Archaeology Experience</label>
-                        <select id="experience" name="experience">
+                        <select id="experience" name="experience" onchange="updateSalaryHint()">
                             <option value="none" data-i18n="opt-none">No experience</option>
                             <option value="amateur" data-i18n="opt-amateur">Amateur (up to 1 year)</option>
                             <option value="intermediate" data-i18n="opt-inter">Intermediate (1–5 years)</option>
                             <option value="professional" data-i18n="opt-prof">Professional (more than 5 years)</option>
                         </select>
+                        <div id="salaryLimitHint" class="salary-limit-hint"></div>
                     </div>
 
                     <div class="form-group">
@@ -159,7 +160,7 @@
                     <div class="form-group">
                         <!-- Bug 3: Allowed min salary to be negative (-500) -->
                         <label for="range"><span data-i18n="label-salary">Select your desired salary per week ($): </span><span id="rangeValue">700</span></label>
-                        <input type="range" id="range" name="range" min="0" max="1700" value="700">
+                        <input type="range" id="range" name="range" min="700" max="2250" value="700">
                     </div>
 
                     <div class="form-group">
@@ -170,6 +171,7 @@
                             <option value="WhatsApp" data-i18n="method-wa">WhatsApp</option>
                             <option value="Telegram" data-i18n="method-tg">Telegram</option>
                         </select>
+                        <div id="salaryLimitHint" class="salary-limit-hint"></div>
                     </div>
 
                     <div class="form-group">
@@ -204,6 +206,6 @@
     </footer>
 
     <!-- JavaScript with Cache Buster (?v=3) -->
-    <script src="./Form Testing Exercise_ Find Validation Bugs _ Realbugz QA Practice_files/main.js.download?v=16"></script>
+    <script src="./Form Testing Exercise_ Find Validation Bugs _ Realbugz QA Practice_files/main.js.download?v=17"></script>
 </body>
 </html>

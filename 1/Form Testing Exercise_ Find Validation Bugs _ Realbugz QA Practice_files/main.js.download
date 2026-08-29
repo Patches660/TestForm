@@ -27,7 +27,6 @@ const i18n = {
         "region-as": "Asia",
         "region-eu": "Europe",
         "region-au": "Australia",
-        "region-univ": "Universe",
         "label-salary": "Select your desired salary per week ($): ",
         "label-method": "Preferred Contact Method",
         "method-email": "Email",
@@ -74,7 +73,6 @@ const i18n = {
         "region-as": "เอเชีย",
         "region-eu": "ยุโรป",
         "region-au": "ออสเตรเลีย",
-        "region-univ": "จักรวาล",
         "label-salary": "เลือกเงินเดือนต่อสัปดาห์ที่ต้องการ ($): ",
         "label-method": "ช่องทางการติดต่อที่สะดวก",
         "method-email": "อีเมล",
@@ -97,6 +95,28 @@ const i18n = {
 };
 
 let currentLanguage = 'en';
+
+// Dynamic Salary Limit Hint Update Function
+window.updateSalaryHint = function() {
+    const experienceSelect = document.getElementById('experience');
+    const hintDiv = document.getElementById('salaryLimitHint');
+    if (!experienceSelect || !hintDiv) return;
+
+    const val = experienceSelect.value;
+    let hintText = "";
+
+    if (val === 'none') {
+        hintText = currentLanguage === 'th' ? "* จำกัดเงินเดือนสูงสุดไม่เกิน $900" : "* Maximum allowed salary is $900";
+    } else if (val === 'amateur') {
+        hintText = currentLanguage === 'th' ? "* ประสบการณ์ไม่เกิน 1 ปี: จำกัดเงินเดือนสูงสุดไม่เกิน $1,125" : "* Amateur (up to 1 year): Maximum allowed salary is $1,125";
+    } else if (val === 'intermediate') {
+        hintText = currentLanguage === 'th' ? "* ประสบการณ์ 1-5 ปี: จำกัดเงินเดือนสูงสุดไม่เกิน $1,550" : "* Intermediate (1-5 years): Maximum allowed salary is $1,550";
+    } else if (val === 'professional') {
+        hintText = currentLanguage === 'th' ? "* ประสบการณ์มากกว่า 5 ปี: ยื่นเงินเดือนตามความประสงค์ได้ (ไม่เกิน $2,250)" : "* Professional: Any salary is allowed (up to $2,250)";
+    }
+
+    hintDiv.textContent = hintText;
+};
 
 // Set language function
 window.setLanguage = function(lang) {
@@ -128,6 +148,9 @@ window.setLanguage = function(lang) {
     document.getElementById('lastName').placeholder = i18n[lang]['placeholder-last-name'];
     document.getElementById('email').placeholder = i18n[lang]['placeholder-email'];
     document.getElementById('contactNumber').placeholder = i18n[lang]['placeholder-phone'];
+
+    // Update salary limit hint text in selected language
+    updateSalaryHint();
 };
 
 // Slider for Salary Range
@@ -218,9 +241,35 @@ document.getElementById('expeditionForm').addEventListener('submit', function(e)
         return;
     }
 
+    // Validating Salary limit rules based on selected experience
+    const experience = document.getElementById('experience').value;
+    const salary = parseInt(document.getElementById('range').value);
+
+    if (experience === 'none' && salary > 900) {
+        if (currentLanguage === 'th') {
+            alert('ไม่อนุญาตยื่นขอเงินเดือนมากกว่า $900 สำหรับผู้ที่ไม่มีประสบการณ์');
+        } else {
+            alert('For "No experience", the maximum allowed salary is $900.');
+        }
+        return;
+    } else if (experience === 'amateur' && salary > 1125) {
+        if (currentLanguage === 'th') {
+            alert('ไม่อนุญาตยื่นขอเงินเดือนมากกว่า $1,125 สำหรับผู้ที่มีประสบการณ์ไม่เกิน 1 ปี');
+        } else {
+            alert('For "Amateur (up to 1 year)", the maximum allowed salary is $1,125.');
+        }
+        return;
+    } else if (experience === 'intermediate' && salary > 1550) {
+        if (currentLanguage === 'th') {
+            alert('ไม่อนุญาตยื่นขอเงินเดือนมากกว่า $1,550 สำหรับผู้ที่มีประสบการณ์ 1-5 ปี');
+        } else {
+            alert('For "Intermediate (1-5 years)", the maximum allowed salary is $1,550.');
+        }
+        return;
+    }
+
     // Test Bug 3: Professional Experience Certification Mismatch
     // Blocks submission requesting a certificate, but no upload field for certificates exists.
-    const experience = document.getElementById('experience').value;
     if (experience === 'professional') {
         if (currentLanguage === 'th') {
             alert('ข้อผิดพลาด: ประสบการณ์ระดับมืออาชีพจำเป็นต้องอัปโหลดใบรับรองความเชี่ยวชาญเพิ่มเติม!');
