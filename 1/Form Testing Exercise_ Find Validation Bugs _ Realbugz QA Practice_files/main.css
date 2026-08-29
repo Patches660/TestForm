@@ -202,8 +202,10 @@ main {
 .form-card {
     background: var(--bg-white);
     width: 100%;
-    padding: 48px 40px;
+    padding: 48px 40px 52px; /* Added more bottom padding */
     border-radius: 14px;
+    display: flex;
+    flex-direction: column;
 }
 
 h1 {
@@ -462,4 +464,9 @@ footer {
 footer p {
     font-size: 13px;
     color: var(--text-muted);
+}
+
+.card-glow-wrapper {
+    display: block !important;
+    overflow: hidden !important;
 }
