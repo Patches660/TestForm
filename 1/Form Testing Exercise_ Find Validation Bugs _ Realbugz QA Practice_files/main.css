@@ -6,7 +6,7 @@
 }
 
 :root {
-    --bg-dark-purple: #0F051D;
+    --bg-dark-purple: #0A0314;
     --primary-purple: #3C096C;
     --accent-purple: #7B2CBF;
     --hover-purple: #9D4EDD;
@@ -20,7 +20,7 @@
     --text-light: #F4F1F8;
     --text-muted: #6E6578;
     --border-light: #E2D9E8;
-    --shadow-premium: 0 20px 50px rgba(0, 0, 0, 0.3);
+    --shadow-premium: 0 25px 60px rgba(0, 0, 0, 0.45);
 }
 
 body {
@@ -34,61 +34,67 @@ body {
     overflow-x: hidden;
 }
 
-/* Floating Magical Orbs Animation */
+/* Floating Magical Orbs Animation - Made much brighter and more dynamic! */
 .orb {
     position: fixed;
     border-radius: 50%;
-    filter: blur(80px);
+    filter: blur(70px);
     z-index: -1;
-    opacity: 0.45;
+    opacity: 0.55;
     pointer-events: none;
 }
 
 .orb-1 {
-    width: 400px;
-    height: 400px;
+    width: 450px;
+    height: 450px;
     background: radial-gradient(circle, #7B2CBF 0%, transparent 70%);
-    top: -10%;
-    left: -10%;
-    animation: floatOrb 15s infinite alternate ease-in-out;
+    top: -5%;
+    left: -5%;
+    animation: floatOrb1 18s infinite alternate ease-in-out;
 }
 
 .orb-2 {
-    width: 500px;
-    height: 500px;
+    width: 550px;
+    height: 550px;
     background: radial-gradient(circle, #D4AF37 0%, transparent 70%);
-    bottom: -15%;
-    right: -10%;
-    animation: floatOrb 20s infinite alternate-reverse ease-in-out;
+    bottom: -10%;
+    right: -5%;
+    animation: floatOrb2 22s infinite alternate ease-in-out;
 }
 
 .orb-3 {
-    width: 350px;
-    height: 350px;
-    background: radial-gradient(circle, #3C096C 0%, transparent 70%);
-    top: 40%;
-    left: 60%;
-    animation: floatOrb 12s infinite alternate ease-in-out;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, #5A189A 0%, transparent 70%);
+    top: 35%;
+    left: 55%;
+    animation: floatOrb3 15s infinite alternate ease-in-out;
 }
 
-@keyframes floatOrb {
-    0% {
-        transform: translate(0, 0) scale(1);
-    }
-    100% {
-        transform: translate(80px, 50px) scale(1.15);
-    }
+@keyframes floatOrb1 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(120px, 60px) scale(1.2); }
+}
+
+@keyframes floatOrb2 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-100px, -80px) scale(1.15); }
+}
+
+@keyframes floatOrb3 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(80px, -50px) scale(1.25); }
 }
 
 /* Header & Logo */
 header {
     width: 100%;
-    padding: 20px 0;
+    padding: 24px 0;
     display: flex;
     justify-content: center;
     border-bottom: 1px solid rgba(212, 175, 55, 0.15);
-    background: rgba(15, 5, 29, 0.7);
-    backdrop-filter: blur(10px);
+    background: rgba(10, 3, 20, 0.85);
+    backdrop-filter: blur(15px);
     z-index: 10;
 }
 
@@ -97,19 +103,18 @@ header {
     max-width: 800px;
     padding: 0 24px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: center;
 }
 
 /* Brand Text Logo Shimmer */
 .logo-text {
     font-family: 'Cinzel', serif;
-    font-size: 24px;
+    font-size: 26px;
     font-weight: 700;
     color: var(--bright-gold);
-    letter-spacing: 0.18em;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
-    text-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
     animation: logoGlow 3s infinite alternate ease-in-out;
 }
 
@@ -118,25 +123,31 @@ header {
         text-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
     }
     100% {
-        text-shadow: 0 0 18px rgba(212, 175, 55, 0.9), 0 0 5px rgba(255, 255, 255, 0.5);
+        text-shadow: 0 0 20px rgba(212, 175, 55, 0.95), 0 0 6px rgba(255, 255, 255, 0.6);
         color: #FFF;
     }
 }
 
-/* Language Toggle Switch */
+/* Language Toggle Switch fixed in absolute top-right of the whole screen */
 .lang-switch-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
     display: flex;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(212, 175, 55, 0.3);
+    background: rgba(10, 3, 20, 0.85);
+    border: 1.5px solid var(--bright-gold);
     border-radius: 20px;
-    padding: 2px;
+    padding: 3px;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+    backdrop-filter: blur(5px);
 }
 
 .lang-btn {
     border: none;
     background: transparent;
     color: var(--text-light);
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
     padding: 6px 14px;
     border-radius: 18px;
@@ -148,6 +159,10 @@ header {
     background: var(--bright-gold);
     color: var(--primary-purple);
     box-shadow: 0 0 10px var(--bright-gold);
+}
+
+.lang-btn:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.1);
 }
 
 /* Main Layout & Unconventional Card */
@@ -165,27 +180,21 @@ main {
     width: 100%;
     max-width: 720px;
     border-radius: 16px;
-    padding: 2px;
-    background: linear-gradient(135deg, var(--accent-purple), var(--bright-gold), var(--primary-purple));
+    padding: 2.5px;
+    background: linear-gradient(135deg, var(--accent-purple), var(--bright-gold), var(--primary-purple), var(--bright-gold));
     background-size: 300% 300%;
     animation: borderGradient 8s infinite alternate ease-in-out;
 }
 
 @keyframes borderGradient {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 /* Glassmorphism Form Card */
 .form-card {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.96);
     backdrop-filter: blur(15px);
     width: 100%;
     padding: 48px 40px;
@@ -269,10 +278,10 @@ textarea:focus {
     outline: none;
     border-color: var(--accent-purple);
     background: #FFFFFF;
-    transform: translateY(-2px); /* Slightly raises input on focus for unorthodox feel */
+    transform: translateY(-2px); /* Raises input slightly */
     box-shadow: 
         0 6px 12px rgba(123, 44, 191, 0.1),
-        0 0 8px rgba(212, 175, 55, 0.3);
+        0 0 8px rgba(212, 175, 55, 0.4);
 }
 
 /* Range Slider */
@@ -305,10 +314,10 @@ input[type="range"] {
 @media (max-width: 576px) {
     .options-container {
         grid-template-columns: 1fr;
-        .form-row {
-            flex-direction: column;
-            gap: 0;
-        }
+    }
+    .form-row {
+        flex-direction: column;
+        gap: 0;
     }
 }
 
@@ -385,16 +394,16 @@ button {
     background: linear-gradient(135deg, var(--accent-purple) 0%, var(--primary-purple) 100%);
     color: #FFFFFF;
     border: 2px solid var(--bright-gold);
-    box-shadow: 0 4px 15px rgba(123, 44, 191, 0.2);
+    box-shadow: 0 4px 15px rgba(123, 44, 191, 0.25);
 }
 
 .btn-submit:hover {
     background: linear-gradient(135deg, var(--hover-purple) 0%, var(--accent-purple) 100%);
     border-color: #FFD700;
     box-shadow: 
-        0 8px 25px rgba(123, 44, 191, 0.35),
-        0 0 12px var(--bright-gold);
-    transform: translateY(-3px); /* Pop up more on hover */
+        0 8px 25px rgba(123, 44, 191, 0.4),
+        0 0 15px var(--bright-gold);
+    transform: translateY(-3px);
 }
 
 .btn-reset {
@@ -418,7 +427,7 @@ button:active {
 footer {
     padding: 24px 0;
     border-top: 1px solid rgba(212, 175, 55, 0.15);
-    background: rgba(15, 5, 29, 0.7);
+    background: rgba(10, 3, 20, 0.85);
     display: flex;
     justify-content: center;
     z-index: 10;
@@ -434,5 +443,5 @@ footer {
 footer p {
     font-size: 13px;
     color: var(--text-light);
-    opacity: 0.7;
+    opacity: 0.75;
 }
