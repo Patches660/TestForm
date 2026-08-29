@@ -157,10 +157,36 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <!-- Bug 3: Allowed min salary to be negative (-500) -->
+                                        <div class="form-group">
                         <label for="range"><span data-i18n="label-salary">Select your desired salary per week ($): </span><span id="rangeValue">700</span></label>
-                        <input type="range" id="range" name="range" min="0" max="1700" value="700">
+                        <!-- Hidden input so the slider value is submitted with the form -->
+                        <input type="hidden" id="range" name="range" min="700" max="2250" value="700">
+                        
+                        <!-- Custom HTML Slider track, fill, thumb and solid marks -->
+                        <div class="custom-slider-container">
+                            <div class="custom-slider-track" id="custom-slider-track">
+                                <div class="custom-slider-fill" id="custom-slider-fill"></div>
+                                <div class="custom-slider-thumb" id="custom-slider-thumb"></div>
+                                
+                                <div class="slider-marks">
+                                    <!-- Mark 900 -->
+                                    <div class="slider-mark" id="mark-900" style="left: calc((900 - 700) / 1550 * 100%);">
+                                        <div class="mark-circle"></div>
+                                        <div class="mark-label">$900</div>
+                                    </div>
+                                    <!-- Mark 1125 -->
+                                    <div class="slider-mark" id="mark-1125" style="left: calc((1125 - 700) / 1550 * 100%);">
+                                        <div class="mark-circle"></div>
+                                        <div class="mark-label">$1,125</div>
+                                    </div>
+                                    <!-- Mark 1550 -->
+                                    <div class="slider-mark" id="mark-1550" style="left: calc((1550 - 700) / 1550 * 100%);">
+                                        <div class="mark-circle"></div>
+                                        <div class="mark-label">$1,550</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group">

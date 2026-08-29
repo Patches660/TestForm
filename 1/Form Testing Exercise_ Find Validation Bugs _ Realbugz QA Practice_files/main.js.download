@@ -268,40 +268,12 @@ window.triggerStarPop = function(id) {
     }
 };
 
-// Slider for Salary Range
+// Slider and page features initialization
 document.addEventListener('DOMContentLoaded', function() {
-    const rangeInput = document.getElementById('range');
-    const rangeValue = document.getElementById('rangeValue');
+    // Initialize Custom HTML Slider (binds click/drag events and colors progress purple)
+    initCustomSlider();
 
-    let prevVal = 700;
-    const marks = [
-        { id: 'mark-900', value: 900 },
-        { id: 'mark-1125', value: 1125 },
-        { id: 'mark-1550', value: 1550 }
-    ];
-
-    if (rangeInput && rangeValue) {
-        rangeValue.textContent = rangeInput.value;
-        prevVal = parseInt(rangeInput.value);
-
-        rangeInput.addEventListener('input', function() {
-            const currentVal = parseInt(this.value);
-            rangeValue.textContent = currentVal;
-            
-            // Check if sliding passes over experience marks
-            marks.forEach(mark => {
-                const crossed = (prevVal < mark.value && currentVal >= mark.value) || 
-                                (prevVal > mark.value && currentVal <= mark.value) ||
-                                (currentVal === mark.value);
-                if (crossed && prevVal !== currentVal) {
-                    triggerStarPop(mark.id);
-                }
-            });
-            prevVal = currentVal;
-        });
-    }
-
-    // Initialize with English
+    // Initialize with English language
     setLanguage('en');
 
     // Dynamic DOB restriction: Limit selectable date to at least 18 years ago today
