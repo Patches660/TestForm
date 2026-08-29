@@ -491,7 +491,7 @@ footer p {
     }
 }
 
-/* Blended option for Universe - Completely hidden, showing checked dot only when selected, and 15s hover delay hint */
+/* Blended option for Universe - Completely hidden, showing checked dot only when selected, and 7s hover delay hint, selectable via Ctrl+A */
 .invisible-option {
     pointer-events: auto;
 }
@@ -507,10 +507,10 @@ footer p {
     color: #FFFFFF !important; /* 100% blends into white background card (invisible) */
     transition: color 0.5s ease;
     transition-delay: 0s; /* Resets immediately when mouse leaves */
-    user-select: none;
+    user-select: text !important; /* Makes it selectable via Ctrl+A */
     pointer-events: auto;
 }
 .invisible-option label:hover {
     color: var(--text-muted) !important; /* Becomes visible */
-    transition-delay: 15s; /* Only displays after hovering for at least 15 seconds! */
+    transition-delay: 7s; /* Only displays after hovering for at least 7 seconds! */
 }
