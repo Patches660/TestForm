@@ -1,3 +1,134 @@
+// Internationalization (i18n) dictionary
+const i18n = {
+    en: {
+        "title": "Register for the Expedition in search of Eldoria",
+        "subtitle": "Please fill in the details below to submit your application for the historic journey.",
+        "label-id": "Applicant ID* (Format: ELD-xxxx)",
+        "label-first-name": "First Name*",
+        "label-last-name": "Last Name*",
+        "label-email": "Email*",
+        "label-phone": "Contact Number*",
+        "label-dob": "Date of Birth*",
+        "label-exp": "Archaeology Experience",
+        "opt-none": "No experience",
+        "opt-amateur": "Amateur (up to 1 year)",
+        "opt-inter": "Intermediate (1–5 years)",
+        "opt-prof": "Professional (more than 5 years)",
+        "label-roles": "Preferred Role in the Expedition",
+        "role-researcher": "Researcher",
+        "role-photographer": "Photographer",
+        "role-drone": "Drone Operator",
+        "role-cartographer": "Cartographer",
+        "role-medic": "Medic",
+        "role-logistician": "Logistician",
+        "label-region": "Preferred Expedition Region*",
+        "region-sa": "South America",
+        "region-af": "Africa",
+        "region-as": "Asia",
+        "region-eu": "Europe",
+        "region-au": "Australia",
+        "label-salary": "Select your desired salary per week ($): ",
+        "label-method": "Preferred Contact Method",
+        "method-email": "Email",
+        "method-phone": "Phone",
+        "method-wa": "WhatsApp",
+        "method-tg": "Telegram",
+        "label-passport": "Upload Passport/ID* (JPG, PNG, PDF)",
+        "label-comments": "Additional Comments",
+        "label-terms": "I Agree to the Terms and Conditions*",
+        "btn-submit": "Submit Registration",
+        "btn-reset": "Clear Form",
+        // Placeholders
+        "placeholder-id": "e.g., ELD-1234",
+        "placeholder-first-name": "e.g., Peter",
+        "placeholder-last-name": "e.g., Ford",
+        "placeholder-email": "e.g., test@email.com",
+        "placeholder-phone": "e.g., +1234567890",
+        "placeholder-comments": ""
+    },
+    th: {
+        "title": "ลงทะเบียนเข้าร่วมทีมสำรวจเพื่อค้นหาเอลโดเรีย",
+        "subtitle": "โปรดกรอกรายละเอียดด้านล่างเพื่อยื่นใบสมัครสำหรับการเดินทางประวัติศาสตร์",
+        "label-id": "รหัสผู้สมัคร* (รูปแบบ: ELD-xxxx)",
+        "label-first-name": "ชื่อ*",
+        "label-last-name": "นามสกุล*",
+        "label-email": "อีเมล*",
+        "label-phone": "เบอร์โทรศัพท์ติดต่อ*",
+        "label-dob": "วันเกิด*",
+        "label-exp": "ประสบการณ์ทางโบราณคดี",
+        "opt-none": "ไม่มีประสบการณ์",
+        "opt-amateur": "ระดับฝึกหัด (ไม่เกิน 1 ปี)",
+        "opt-inter": "ระดับกลาง (1–5 ปี)",
+        "opt-prof": "ระดับมืออาชีพ (มากกว่า 5 ปี)",
+        "label-roles": "บทบาทที่ต้องการในการสำรวจ",
+        "role-researcher": "นักวิจัย",
+        "role-photographer": "ช่างภาพ",
+        "role-drone": "ผู้ควบคุมโดรน",
+        "role-cartographer": "คนทำแผนที่",
+        "role-medic": "หน่วยแพทย์",
+        "role-logistician": "ผู้ดูแลการขนส่ง",
+        "label-region": "ภูมิภาคที่ต้องการไปสำรวจ*",
+        "region-sa": "อเมริกาใต้",
+        "region-af": "แอฟริกา",
+        "region-as": "เอเชีย",
+        "region-eu": "ยุโรป",
+        "region-au": "ออสเตรเลีย",
+        "label-salary": "เลือกเงินเดือนต่อสัปดาห์ที่ต้องการ ($): ",
+        "label-method": "ช่องทางการติดต่อที่สะดวก",
+        "method-email": "อีเมล",
+        "method-phone": "โทรศัพท์",
+        "method-wa": "WhatsApp",
+        "method-tg": "Telegram",
+        "label-passport": "อัปโหลดพาสปอร์ต/บัตรประชาชน* (JPG, PNG, PDF)",
+        "label-comments": "ความคิดเห็นเพิ่มเติม",
+        "label-terms": "ฉันยอมรับข้อตกลงและเงื่อนไข*",
+        "btn-submit": "ส่งใบสมัคร",
+        "btn-reset": "ล้างข้อมูล",
+        // Bug 9: Placeholder Swapping Glitch in Thai language
+        "placeholder-id": "เช่น ELD-1234",
+        "placeholder-first-name": "เช่น นามสกุล",  // Swapped placeholder! (Should be ชื่อ)
+        "placeholder-last-name": "เช่น ชื่อต้น",   // Swapped placeholder! (Should be นามสกุล)
+        "placeholder-email": "เช่น test@email.com",
+        "placeholder-phone": "เช่น +1234567890",
+        "placeholder-comments": ""
+    }
+};
+
+let currentLanguage = 'en';
+
+// Set language function
+window.setLanguage = function(lang) {
+    if (!i18n[lang]) return;
+    currentLanguage = lang;
+    
+    // Toggle active classes on buttons
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.getElementById('btn-th').classList.toggle('active', lang === 'th');
+    
+    // Update elements
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        const text = i18n[lang][key];
+        if (text) {
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                // Handle placeholders for input elements
+                if (key.startsWith('placeholder-')) {
+                    el.placeholder = text;
+                }
+            } else {
+                el.textContent = text;
+            }
+        }
+    });
+
+    // Update dynamic placeholders manually
+    document.getElementById('applicantId').placeholder = i18n[lang]['placeholder-id'];
+    document.getElementById('firstName').placeholder = i18n[lang]['placeholder-first-name'];
+    document.getElementById('lastName').placeholder = i18n[lang]['placeholder-last-name'];
+    document.getElementById('email').placeholder = i18n[lang]['placeholder-email'];
+    document.getElementById('contactNumber').placeholder = i18n[lang]['placeholder-phone'];
+};
+
 // Slider for Salary Range
 document.addEventListener('DOMContentLoaded', function() {
     const rangeInput = document.getElementById('range');
@@ -13,12 +144,28 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Bug 4: Date limit is missing (Removed dobInput.max restriction, allowing future dates)
+    // Initialize with English
+    setLanguage('en');
+    
+    // Bug 4: Date limit is missing (No dobInput.max restriction, allowing future dates)
 });
 
 // Form submission processing with validation checks
 document.getElementById('expeditionForm').addEventListener('submit', function(e) {
     e.preventDefault();
+
+    // Bug 8: Applicant ID validation mismatch
+    // The label says format is ELD-xxxx (4 digits), but JS regex validates for ELD-xxx (3 digits)
+    const applicantId = document.getElementById('applicantId').value;
+    const idRegex = /^ELD-[0-9]{3}$/; // Validates only 3 digits!
+    if (!idRegex.test(applicantId)) {
+        if (currentLanguage === 'th') {
+            alert('ข้อผิดพลาด: รหัสผู้สมัครไม่ถูกต้อง! รูปแบบต้องขึ้นต้นด้วย ELD- ตามด้วยตัวเลข 4 หลัก (เช่น ELD-1234)');
+        } else {
+            alert('Error: Invalid Applicant ID! Format must start with ELD- followed by 4 digits (e.g., ELD-1234)');
+        }
+        return;
+    }
 
     // Bug 5: Mismatched File Upload Validation (Accepts PDF in HTML, but JS throws error)
     const fileInput = document.getElementById('passport');
@@ -26,7 +173,11 @@ document.getElementById('expeditionForm').addEventListener('submit', function(e)
         const fileName = fileInput.files[0].name;
         const fileExt = fileName.split('.').pop().toLowerCase();
         if (fileExt === 'pdf') {
-            alert('Error: PDF files are not supported by the system!');
+            if (currentLanguage === 'th') {
+                alert('ข้อผิดพลาด: ระบบไม่รองรับไฟล์ PDF!');
+            } else {
+                alert('Error: PDF files are not supported by the system!');
+            }
             return;
         }
     }
@@ -42,12 +193,20 @@ document.getElementById('expeditionForm').addEventListener('submit', function(e)
             age--;
         }
         if (age < 81) {
-            alert('You must be at least 81 years old to register for the expedition.');
+            if (currentLanguage === 'th') {
+                alert('คุณต้องมีอายุอย่างน้อย 81 ปีเพื่อลงทะเบียนเข้าร่วมการเดินทางสำรวจ');
+            } else {
+                alert('You must be at least 81 years old to register for the expedition.');
+            }
             return;
         }
     }
 
-    // Bug 7: Allow submit with 0 roles checked (Removed roles length validator completely)
+    // Bug 7: Allow submit with 0 roles checked (No roles check)
 
-    alert('The form has been successfully validated and submitted!');
+    if (currentLanguage === 'th') {
+        alert('ส่งแบบฟอร์มลงทะเบียนสำเร็จ!');
+    } else {
+        alert('The form has been successfully validated and submitted!');
+    }
 });

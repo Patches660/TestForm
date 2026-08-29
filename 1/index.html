@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expedition Registration Form | Gold & Purple Edition</title>
+    <title>Expedition Registration Form | Gold & Purple Magical Edition</title>
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,149 +14,176 @@
     <link rel="stylesheet" href="./Form Testing Exercise_ Find Validation Bugs _ Realbugz QA Practice_files/main.css">
 </head>
 <body>
+    <!-- Floating Magical Orbs for animated background -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
     <header>
         <div class="header-container">
-            <!-- Removed old logo, added luxurious text brand logo -->
             <div class="logo-text">ELDORIA EXPEDITION</div>
+            
+            <!-- Language Switcher -->
+            <div class="lang-switch-container">
+                <button type="button" class="lang-btn active" id="btn-en" onclick="setLanguage('en')">EN</button>
+                <button type="button" class="lang-btn" id="btn-th" onclick="setLanguage('th')">TH</button>
+            </div>
         </div>
     </header>
 
     <main>
-        <div class="form-card">
-            <h1>Register for the Expedition in search of Eldoria</h1>
-            <p class="subtitle">Please fill in the details below to submit your application for the historic journey.</p>
-            
-            <form id="expeditionForm" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label for="fullName">Full Name*</label>
-                    <input type="text" id="fullName" name="fullName" placeholder="e.g., Peter Ford" required maxlength="100">
-                </div>
+        <!-- Animated Glowing border card wrapper -->
+        <div class="card-glow-wrapper">
+            <div class="form-card">
+                <h1 data-i18n="title">Register for the Expedition in search of Eldoria</h1>
+                <p class="subtitle" data-i18n="subtitle">Please fill in the details below to submit your application for the historic journey.</p>
+                
+                <form id="expeditionForm" enctype="multipart/form-data">
+                    
+                    <!-- New field: Applicant ID -->
+                    <div class="form-group">
+                        <label for="applicantId" data-i18n="label-id">Applicant ID* (Format: ELD-xxxx)</label>
+                        <input type="text" id="applicantId" name="applicantId" placeholder="e.g., ELD-1234" required>
+                    </div>
 
-                <div class="form-group">
-                    <!-- Bug 1: Mismatched Input Type (type="text" instead of "email") -->
-                    <label for="email">Email*</label>
-                    <input type="text" id="email" name="email" placeholder="e.g., test@email.com" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="contactNumber">Contact Number*</label>
-                    <input type="tel" id="contactNumber" name="contactNumber" pattern="^\+?[0-9](?:-?[0-9]){6,14}$" placeholder="e.g., +1234567890" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="dob">Date of Birth*</label>
-                    <input type="date" id="dob" name="dob" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="experience">Archaeology Experience</label>
-                    <select id="experience" name="experience">
-                        <option>No experience</option>
-                        <option>Amateur (up to 1 year)</option>
-                        <option>Intermediate (1–5 years)</option>
-                        <option>Professional (more than 5 years)</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="group-title">Preferred Role in the Expedition</label>
-                    <div class="options-container">
-                        <div class="checkbox-option">
-                            <input type="checkbox" id="researcher" name="role" value="Researcher">
-                            <label for="researcher">Researcher</label>
+                    <!-- New field: First Name & Last Name (split from Full Name) -->
+                    <div class="form-row">
+                        <div class="form-group col-6">
+                            <label for="firstName" data-i18n="label-first-name">First Name*</label>
+                            <input type="text" id="firstName" name="firstName" placeholder="e.g., Peter" required maxlength="50">
                         </div>
-                        <div class="checkbox-option">
-                            <input type="checkbox" id="photographer" name="role" value="Photographer">
-                            <label for="photographer">Photographer</label>
-                        </div>
-                        <div class="checkbox-option">
-                            <input type="checkbox" id="drone" name="role" value="Drone Operator">
-                            <label for="drone">Drone Operator</label>
-                        </div>
-                        <div class="checkbox-option">
-                            <input type="checkbox" id="cartographer" name="role" value="Cartographer">
-                            <label for="cartographer">Cartographer</label>
-                        </div>
-                        <div class="checkbox-option">
-                            <input type="checkbox" id="medic" name="role" value="Medic">
-                            <label for="medic">Medic</label>
-                        </div>
-                        <div class="checkbox-option">
-                            <input type="checkbox" id="logistician" name="role" value="Logistician">
-                            <label for="logistician">Logistician</label>
+                        <div class="form-group col-6">
+                            <label for="lastName" data-i18n="label-last-name">Last Name*</label>
+                            <input type="text" id="lastName" name="lastName" placeholder="e.g., Ford" required maxlength="50">
                         </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="group-title">Preferred Expedition Region*</label>
-                    <div class="options-container">
-                        <div class="radio-option">
-                            <input type="radio" name="region" id="southAmerica" value="South America" required>
-                            <label for="southAmerica">South America</label>
-                        </div>
-                        <div class="radio-option">
-                            <input type="radio" name="region" id="africa" value="Africa">
-                            <label for="africa">Africa</label>
-                        </div>
-                        <div class="radio-option">
-                            <input type="radio" name="region" id="asia" value="Asia">
-                            <label for="asia">Asia</label>
-                        </div>
-                        <div class="radio-option">
-                            <input type="radio" name="region" id="europe" value="Europe">
-                            <label for="europe">Europe</label>
-                        </div>
-                        <div class="radio-option">
-                            <input type="radio" name="region" id="australia" value="Australia">
-                            <label for="australia">Australia</label>
+                    <div class="form-group">
+                        <label for="email" data-i18n="label-email">Email*</label>
+                        <!-- Bug 1: Mismatched Input Type (type="text" instead of "email") -->
+                        <input type="text" id="email" name="email" placeholder="e.g., test@email.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contactNumber" data-i18n="label-phone">Contact Number*</label>
+                        <input type="tel" id="contactNumber" name="contactNumber" pattern="^\+?[0-9](?:-?[0-9]){6,14}$" placeholder="e.g., +1234567890" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dob" data-i18n="label-dob">Date of Birth*</label>
+                        <input type="date" id="dob" name="dob" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="experience" data-i18n="label-exp">Archaeology Experience</label>
+                        <select id="experience" name="experience">
+                            <option value="none" data-i18n="opt-none">No experience</option>
+                            <option value="amateur" data-i18n="opt-amateur">Amateur (up to 1 year)</option>
+                            <option value="intermediate" data-i18n="opt-inter">Intermediate (1–5 years)</option>
+                            <option value="professional" data-i18n="opt-prof">Professional (more than 5 years)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="group-title" data-i18n="label-roles">Preferred Role in the Expedition</label>
+                        <div class="options-container">
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="researcher" name="role" value="Researcher">
+                                <label for="researcher" data-i18n="role-researcher">Researcher</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="photographer" name="role" value="Photographer">
+                                <label for="photographer" data-i18n="role-photographer">Photographer</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="drone" name="role" value="Drone Operator">
+                                <label for="drone" data-i18n="role-drone">Drone Operator</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="cartographer" name="role" value="Cartographer">
+                                <label for="cartographer" data-i18n="role-cartographer">Cartographer</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="medic" name="role" value="Medic">
+                                <label for="medic" data-i18n="role-medic">Medic</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="logistician" name="role" value="Logistician">
+                                <label for="logistician" data-i18n="role-logistician">Logistician</label>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <!-- Bug 3: Allowed min salary to be negative (-500) -->
-                    <label for="range">Select your desired salary per week ($): <span id="rangeValue">700</span></label>
-                    <input type="range" id="range" name="range" min="-500" max="1700" value="700">
-                </div>
+                    <div class="form-group">
+                        <label class="group-title" data-i18n="label-region">Preferred Expedition Region*</label>
+                        <div class="options-container">
+                            <div class="radio-option">
+                                <input type="radio" name="region" id="southAmerica" value="South America" required>
+                                <label for="southAmerica" data-i18n="region-sa">South America</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="region" id="africa" value="Africa">
+                                <label for="africa" data-i18n="region-af">Africa</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="region" id="asia" value="Asia">
+                                <label for="asia" data-i18n="region-as">Asia</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="region" id="europe" value="Europe">
+                                <label for="europe" data-i18n="region-eu">Europe</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="region" id="australia" value="Australia">
+                                <label for="australia" data-i18n="region-au">Australia</label>
+                            </div>
+                        </div>
+                    </div>
 
-                <div class="form-group">
-                    <label for="contactMethod">Preferred Contact Method</label>
-                    <select id="contactMethod" name="contactMethod">
-                        <option>Email</option>
-                        <option>Phone</option>
-                        <option>WhatsApp</option>
-                        <option>Telegram</option>
-                    </select>
-                </div>
+                    <div class="form-group">
+                        <!-- Bug 3: Allowed min salary to be negative (-500) -->
+                        <label for="range"><span data-i18n="label-salary">Select your desired salary per week ($): </span><span id="rangeValue">700</span></label>
+                        <input type="range" id="range" name="range" min="-500" max="1700" value="700">
+                    </div>
 
-                <div class="form-group">
-                    <label for="passport">Upload Passport/ID* (JPG, PNG, PDF)</label>
-                    <input type="file" id="passport" name="passport" accept=".jpg, .jpeg, .png, .pdf" required>
-                </div>
+                    <div class="form-group">
+                        <label for="contactMethod" data-i18n="label-method">Preferred Contact Method</label>
+                        <select id="contactMethod" name="contactMethod">
+                            <option value="Email" data-i18n="method-email">Email</option>
+                            <option value="Phone" data-i18n="method-phone">Phone</option>
+                            <option value="WhatsApp" data-i18n="method-wa">WhatsApp</option>
+                            <option value="Telegram" data-i18n="method-tg">Telegram</option>
+                        </select>
+                    </div>
 
-                <div class="form-group">
-                    <label for="comments">Additional Comments</label>
-                    <textarea id="comments" name="comments" rows="4" maxlength="500"></textarea>
-                </div>
+                    <div class="form-group">
+                        <label for="passport" data-i18n="label-passport">Upload Passport/ID* (JPG, PNG, PDF)</label>
+                        <input type="file" id="passport" name="passport" accept=".jpg, .jpeg, .png, .pdf" required>
+                    </div>
 
-                <div class="form-group terms-group">
-                    <input type="checkbox" id="terms" required>
-                    <label for="terms">I Agree to the Terms and Conditions*</label>
-                </div>
+                    <div class="form-group">
+                        <label for="comments" data-i18n="label-comments">Additional Comments</label>
+                        <textarea id="comments" name="comments" rows="4" maxlength="500"></textarea>
+                    </div>
 
-                <div class="button-group">
-                    <button type="submit" class="btn-submit">Submit Registration</button>
-                    <!-- Bug 2: Clear button type set to submit instead of reset -->
-                    <button type="submit" class="btn-reset">Clear Form</button>
-                </div>
-            </form>
+                    <div class="form-group terms-group">
+                        <input type="checkbox" id="terms" required>
+                        <label for="terms" data-i18n="label-terms">I Agree to the Terms and Conditions*</label>
+                    </div>
+
+                    <div class="button-group">
+                        <button type="submit" class="btn-submit" data-i18n="btn-submit">Submit Registration</button>
+                        <!-- Bug 2: Clear button type set to submit instead of reset -->
+                        <button type="submit" class="btn-reset" data-i18n="btn-reset">Clear Form</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </main>
 
     <footer>
         <div class="footer-container">
-            <p>&copy; 2026 Eldoria Expedition. All rights reserved. Premium QA Practice Website.</p>
+            <p>&copy; 2026 Eldoria Expedition. All rights reserved. Premium Animated QA Practice Website.</p>
         </div>
     </footer>
 
