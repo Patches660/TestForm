@@ -27,6 +27,7 @@ const i18n = {
         "region-as": "Asia",
         "region-eu": "Europe",
         "region-au": "Australia",
+        "region-univ": "Universe",
         "label-salary": "Select your desired salary per week ($): ",
         "label-method": "Preferred Contact Method",
         "method-email": "Email",
@@ -38,6 +39,9 @@ const i18n = {
         "label-terms": "I Agree to the Terms and Conditions*",
         "btn-submit": "Submit Registration",
         "btn-reset": "Clear Form",
+        "mark-900": "Max $900",
+        "mark-1125": "Max $1125",
+        "mark-1550": "Max $1550",
         // Placeholders
         "placeholder-id": "e.g., 6601012345",
         "placeholder-first-name": "e.g., Peter",
@@ -73,6 +77,7 @@ const i18n = {
         "region-as": "เอเชีย",
         "region-eu": "ยุโรป",
         "region-au": "ออสเตรเลีย",
+        "region-univ": "จักรวาล",
         "label-salary": "เลือกเงินเดือนต่อสัปดาห์ที่ต้องการ ($): ",
         "label-method": "ช่องทางการติดต่อที่สะดวก",
         "method-email": "อีเมล",
@@ -84,6 +89,9 @@ const i18n = {
         "label-terms": "ฉันยอมรับข้อตกลงและเงื่อนไข*",
         "btn-submit": "ส่งใบสมัคร",
         "btn-reset": "ล้างข้อมูล",
+        "mark-900": "ไม่มี ปสก. (สูงสุด $900)",
+        "mark-1125": "ปสก. 1 ปี (สูงสุด $1125)",
+        "mark-1550": "ปสก. 1-5 ปี (สูงสุด $1550)",
         // Test Bug 2: Placeholder Swapping Glitch in Thai language (i18n bug)
         "placeholder-id": "เช่น 6601012345",
         "placeholder-first-name": "เช่น นามสกุล",  // Swapped placeholder! (Should be ชื่อ)
@@ -112,7 +120,7 @@ window.updateSalaryHint = function() {
     } else if (val === 'intermediate') {
         hintText = currentLanguage === 'th' ? "* ประสบการณ์ 1-5 ปี: จำกัดเงินเดือนสูงสุดไม่เกิน $1,550" : "* Intermediate (1-5 years): Maximum allowed salary is $1,550";
     } else if (val === 'professional') {
-        hintText = currentLanguage === 'th' ? "* ประสบการณ์มากกว่า 5 ปี: ยื่นเงินเดือนตามความประสงค์ได้ (ไม่เกิน $2,250)" : "* Professional: Any salary is allowed (up to $2,250)";
+        hintText = currentLanguage === 'th' ? "* ประสบการณ์มากกว่า 5 ปี: ยื่นเงินเดือนตามความประสงค์ได้อิสระ (ไม่เกิน $2,250)" : "* Professional: Any salary is allowed (up to $2,250)";
     }
 
     hintDiv.textContent = hintText;
@@ -153,15 +161,62 @@ window.setLanguage = function(lang) {
     updateSalaryHint();
 };
 
+// Helper: Sets slider value and updates display
+window.setSliderValue = function(val) {
+    const rangeInput = document.getElementById('range');
+    const rangeValue = document.getElementById('rangeValue');
+    if (rangeInput && rangeValue) {
+        rangeInput.value = val;
+        rangeValue.textContent = val;
+        // Trigger star pop explicitly
+        if (val === 900) triggerStarPop('mark-900');
+        if (val === 1125) triggerStarPop('mark-1125');
+        if (val === 1550) triggerStarPop('mark-1550');
+    }
+};
+
+// Helper: Triggers star bounce animation
+window.triggerStarPop = function(id) {
+    const markEl = document.getElementById(id);
+    if (!markEl) return;
+    const star = markEl.querySelector('.star-pop');
+    if (star) {
+        star.classList.remove('animate');
+        void star.offsetWidth; // Force layout reflow to restart CSS keyframe animation
+        star.classList.add('animate');
+    }
+};
+
 // Slider for Salary Range
 document.addEventListener('DOMContentLoaded', function() {
     const rangeInput = document.getElementById('range');
     const rangeValue = document.getElementById('rangeValue');
 
+    let prevVal = 700;
+    const marks = [
+        { id: 'mark-900', value: 900 },
+        { id: 'mark-1125', value: 1125 },
+        { id: 'mark-1550', value: 1550 }
+    ];
+
     if (rangeInput && rangeValue) {
         rangeValue.textContent = rangeInput.value;
+        prevVal = parseInt(rangeInput.value);
+
         rangeInput.addEventListener('input', function() {
-            rangeValue.textContent = this.value;
+            const currentVal = parseInt(this.value);
+            rangeValue.textContent = currentVal;
+            
+            // Check if sliding passes over experience marks
+            marks.forEach(mark => {
+                const crossed = (prevVal < mark.value && currentVal >= mark.value) || 
+                                (prevVal > mark.value && currentVal <= mark.value) ||
+                                (currentVal === mark.value);
+                if (crossed && prevVal !== currentVal) {
+                    triggerStarPop(mark.id);
+                }
+            });
+            prevVal = currentVal;
         });
     }
 

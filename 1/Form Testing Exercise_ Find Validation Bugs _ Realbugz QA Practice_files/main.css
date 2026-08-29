@@ -523,3 +523,76 @@ footer p {
     margin-top: 6px;
     transition: all 0.3s ease;
 }
+
+/* Slider Experience Marks and Star Pop Animation */
+.slider-marks-container {
+    position: relative;
+    width: 100%;
+    height: 45px;
+    margin-top: 12px;
+}
+.slider-mark {
+    position: absolute;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    z-index: 2;
+}
+.mark-circle {
+    width: 12px;
+    height: 12px;
+    background: #FFFFFF;
+    border: 2px solid var(--accent-purple);
+    border-radius: 50%;
+    transition: all 0.25s ease;
+}
+.slider-mark:hover .mark-circle {
+    transform: scale(1.3);
+    background: var(--bright-gold);
+    border-color: var(--bright-gold);
+}
+.mark-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-top: 6px;
+    white-space: nowrap;
+    text-align: center;
+    transition: color 0.25s ease;
+}
+.slider-mark:hover .mark-label {
+    color: var(--primary-purple);
+}
+.star-pop {
+    position: absolute;
+    top: -18px;
+    font-size: 16px;
+    color: var(--bright-gold);
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0);
+}
+.star-pop.animate {
+    animation: starBounce 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+@keyframes starBounce {
+    0% {
+        transform: scale(0) translateY(0);
+        opacity: 0;
+    }
+    30% {
+        transform: scale(1.6) translateY(-18px);
+        opacity: 1;
+        text-shadow: 0 0 8px rgba(212, 175, 55, 0.9);
+    }
+    85% {
+        transform: scale(1) translateY(-26px);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(0) translateY(-32px);
+        opacity: 0;
+    }
+}
