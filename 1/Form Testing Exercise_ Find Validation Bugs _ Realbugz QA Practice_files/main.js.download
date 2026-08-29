@@ -43,7 +43,7 @@ const i18n = {
         "placeholder-first-name": "e.g., Peter",
         "placeholder-last-name": "e.g., Ford",
         "placeholder-email": "e.g., test@email.com",
-        "placeholder-phone": "e.g., +1234567890",
+        "placeholder-phone": "e.g., 812345678",
         "placeholder-comments": ""
     },
     th: {
@@ -89,7 +89,7 @@ const i18n = {
         "placeholder-first-name": "เช่น นามสกุล",  // Swapped placeholder! (Should be ชื่อ)
         "placeholder-last-name": "เช่น ชื่อต้น",   // Swapped placeholder! (Should be นามสกุล)
         "placeholder-email": "เช่น test@email.com",
-        "placeholder-phone": "เช่น +1234567890",
+        "placeholder-phone": "เช่น 812345678",
         "placeholder-comments": ""
     }
 };
@@ -143,11 +143,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize with English
     setLanguage('en');
 
-    // FIXED: Date limit is now restricted to prevent future dates (Fixing Date of Birth bug)
+    // Dynamic DOB restriction: Limit selectable date to at least 18 years ago today
     const dobInput = document.getElementById('dob');
     if (dobInput) {
-        const today = new Date().toISOString().split('T')[0];
-        dobInput.max = today;
+        const eighteenYearsAgo = new Date();
+        eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear() - 18);
+        const maxDate = eighteenYearsAgo.toISOString().split('T')[0];
+        dobInput.max = maxDate;
     }
 });
 
@@ -167,6 +169,53 @@ document.getElementById('expeditionForm').addEventListener('submit', function(e)
         return;
     }
 
+    // Validating First Name & Last Name: Letters only (English or Thai), min 5 characters
+    const nameRegex = /^[a-zA-Z\u0E00-\u0E7F]{5,}$/;
+    
+    const firstName = document.getElementById('firstName').value;
+    if (!nameRegex.test(firstName)) {
+        if (currentLanguage === 'th') {
+            alert('ชื่อต้องประกอบด้วยตัวอักษรภาษาอังกฤษหรือภาษาไทยเท่านั้น (ห้ามใส่ตัวเลข หรืออักขระพิเศษ) และต้องมีความยาวอย่างน้อย 5 ตัวอักษรขึ้นไป');
+        } else {
+            alert('First Name must contain only English or Thai letters (no numbers or special characters) and be at least 5 characters long.');
+        }
+        return;
+    }
+
+    const lastName = document.getElementById('lastName').value;
+    if (!nameRegex.test(lastName)) {
+        if (currentLanguage === 'th') {
+            alert('นามสกุลต้องประกอบด้วยตัวอักษรภาษาอังกฤษหรือภาษาไทยเท่านั้น (ห้ามใส่ตัวเลข หรืออักขระพิเศษ) และต้องมีความยาวอย่างน้อย 5 ตัวอักษรขึ้นไป');
+        } else {
+            alert('Last Name must contain only English or Thai letters (no numbers or special characters) and be at least 5 characters long.');
+        }
+        return;
+    }
+
+    // Validating Email: Correct format check
+    const email = document.getElementById('email').value;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        if (currentLanguage === 'th') {
+            alert('โปรดกรอกที่อยู่อีเมลให้ถูกต้องตามรูปแบบ (เช่น test@email.com)');
+        } else {
+            alert('Please enter a valid email address (e.g., test@email.com).');
+        }
+        return;
+    }
+
+    // Validating Contact Number: 7-10 digits (excluding country code prefix)
+    const contactNumber = document.getElementById('contactNumber').value;
+    const phoneRegex = /^[0-9]{7,10}$/; // Phone digits only, 7 to 10 digits
+    if (!phoneRegex.test(contactNumber)) {
+        if (currentLanguage === 'th') {
+            alert('โปรดกรอกเบอร์โทรศัพท์ติดต่อด้วยตัวเลข 7 ถึง 10 หลัก (ระบุรหัสประเทศในช่องด้านข้าง)');
+        } else {
+            alert('Please enter your contact number using 7 to 10 digits (excluding the country dial code).');
+        }
+        return;
+    }
+
     // Test Bug 3: Professional Experience Certification Mismatch
     // Blocks submission requesting a certificate, but no upload field for certificates exists.
     const experience = document.getElementById('experience').value;
@@ -179,7 +228,7 @@ document.getElementById('expeditionForm').addEventListener('submit', function(e)
         return;
     }
 
-    // Requires at least one role checkbox to be checked (Normal functioning validation)
+    // Requires at least one role checkbox to be checked
     const roles = document.querySelectorAll('input[name="role"]:checked');
     if (roles.length === 0) {
         if (currentLanguage === 'th') {
@@ -190,7 +239,7 @@ document.getElementById('expeditionForm').addEventListener('submit', function(e)
         return;
     }
 
-    // Corrected age validator logic limit to 18 years old (Normal functioning validation)
+    // Age validator logic limit to 18 years old (validated via date checks)
     const dobValue = document.getElementById('dob').value;
     if (dobValue) {
         const dob = new Date(dobValue);

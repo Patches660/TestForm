@@ -470,3 +470,23 @@ footer p {
     display: block !important;
     overflow: hidden !important;
 }
+
+/* Phone input with country code group styling */
+.phone-input-group {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+#countryCode {
+    width: 180px;
+    flex-shrink: 0;
+}
+@media (max-width: 576px) {
+    .phone-input-group {
+        flex-direction: column;
+        gap: 8px;
+    }
+    #countryCode {
+        width: 100%;
+    }
+}

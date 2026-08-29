@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     
     <!-- Stylesheet with Cache Buster (?v=3) -->
-    <link rel="stylesheet" href="./Form Testing Exercise_ Find Validation Bugs _ Realbugz QA Practice_files/main.css?v=9">
+    <link rel="stylesheet" href="./Form Testing Exercise_ Find Validation Bugs _ Realbugz QA Practice_files/main.css?v=10">
 </head>
 <body>
     <!-- Floating Magical Orbs for animated background -->
@@ -66,7 +66,18 @@
 
                     <div class="form-group">
                         <label for="contactNumber" data-i18n="label-phone">Contact Number*</label>
-                        <input type="tel" id="contactNumber" name="contactNumber" pattern="^\+?[0-9](?:-?[0-9]){6,14}$" placeholder="e.g., +1234567890" required>
+                        <div class="phone-input-group">
+                            <select id="countryCode" name="countryCode">
+                                <option value="+66">Thailand (+66)</option>
+                                <option value="+1">United States (+1)</option>
+                                <option value="+44">United Kingdom (+44)</option>
+                                <option value="+81">Japan (+81)</option>
+                                <option value="+65">Singapore (+65)</option>
+                                <option value="+61">Australia (+61)</option>
+                                <option value="+82">South Korea (+82)</option>
+                            </select>
+                            <input type="tel" id="contactNumber" name="contactNumber" placeholder="e.g., 812345678" required>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -188,6 +199,6 @@
     </footer>
 
     <!-- JavaScript with Cache Buster (?v=3) -->
-    <script src="./Form Testing Exercise_ Find Validation Bugs _ Realbugz QA Practice_files/main.js.download?v=9"></script>
+    <script src="./Form Testing Exercise_ Find Validation Bugs _ Realbugz QA Practice_files/main.js.download?v=10"></script>
 </body>
 </html>
