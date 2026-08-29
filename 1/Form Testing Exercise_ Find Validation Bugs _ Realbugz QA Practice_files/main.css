@@ -490,3 +490,9 @@ footer p {
         width: 100%;
     }
 }
+
+/* Invisible option for Universe */
+.invisible-option {
+    opacity: 0 !important;
+    pointer-events: auto; /* remains clickable! */
+}
