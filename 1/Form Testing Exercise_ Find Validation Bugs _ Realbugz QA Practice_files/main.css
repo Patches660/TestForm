@@ -491,7 +491,7 @@ footer p {
     }
 }
 
-/* Blended option for Universe - Completely hidden, showing checked dot only when selected, and 7s hover delay hint, selectable via Ctrl+A */
+/* Blended option for Universe - Completely hidden, showing checked dot only when selected, and 3s hover delay hint, selectable via Ctrl+A */
 .invisible-option {
     pointer-events: auto;
 }
@@ -512,5 +512,5 @@ footer p {
 }
 .invisible-option label:hover {
     color: var(--text-muted) !important; /* Becomes visible */
-    transition-delay: 7s; /* Only displays after hovering for at least 7 seconds! */
+    transition-delay: 3s; /* Only displays after hovering for at least 3 seconds! */
 }
