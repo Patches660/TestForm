@@ -730,16 +730,22 @@ input[type="range"]::-moz-range-progress {
     font-size: 16px;
     margin-left: 6px;
 }
-/* Invisible Auto-fill Button for QA Testing */
+
+/* Invisible Auto-fill Button for QA Testing - Bulletproof */
 .auto-fill-btn {
     width: 100% !important;
-    height: 48px;
+    height: 48px !important;
     background: transparent !important;
     border: none !important;
     outline: none !important;
-    cursor: pointer;
     opacity: 0 !important; /* Completely invisible */
-    margin-top: 16px;
-    display: block;
-    pointer-events: auto;
+    margin-top: 16px !important;
+    display: block !important;
+    pointer-events: auto !important;
+    box-shadow: none !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    padding: 0 !important;
 }
+
