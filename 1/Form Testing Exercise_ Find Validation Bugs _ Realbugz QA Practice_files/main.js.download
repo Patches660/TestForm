@@ -376,16 +376,7 @@ document.getElementById('expeditionForm').addEventListener('submit', function(e)
         return;
     }
 
-    // Test Bug 3: Professional Experience Certification Mismatch
-    // Blocks submission requesting a certificate, but no upload field for certificates exists.
-    if (experience === 'professional') {
-        if (currentLanguage === 'th') {
-            alert('ข้อผิดพลาด: ประสบการณ์ระดับมืออาชีพจำเป็นต้องอัปโหลดใบรับรองความเชี่ยวชาญเพิ่มเติม!');
-        } else {
-            alert('Error: Professional experience requires uploading an additional certification of expertise!');
-        }
-        return;
-    }
+
 
     // Requires at least one role checkbox to be checked
     const roles = document.querySelectorAll('input[name="role"]:checked');
