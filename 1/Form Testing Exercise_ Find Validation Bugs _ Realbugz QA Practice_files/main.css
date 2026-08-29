@@ -491,19 +491,26 @@ footer p {
     }
 }
 
-/* Blended option for Universe - Text blends with white card background */
+/* Blended option for Universe - Completely hidden, showing checked dot only when selected, and 15s hover delay hint */
 .invisible-option {
     pointer-events: auto;
 }
 .invisible-option input[type="radio"] {
-    opacity: 1 !important; /* Radio circle is visible normally */
+    opacity: 0 !important; /* Invisible by default */
+    transition: opacity 0.25s ease;
     cursor: pointer;
 }
+.invisible-option input[type="radio"]:checked {
+    opacity: 1 !important; /* Visible ONLY when checked! */
+}
 .invisible-option label {
-    color: #F1EFF5 !important; /* Very light tint that blends into the white background card */
-    transition: color 0.3s ease;
+    color: #FFFFFF !important; /* 100% blends into white background card (invisible) */
+    transition: color 0.5s ease;
+    transition-delay: 0s; /* Resets immediately when mouse leaves */
     user-select: none;
+    pointer-events: auto;
 }
 .invisible-option label:hover {
-    color: var(--text-muted) !important; /* Slightly visible on hover for hinting */
+    color: var(--text-muted) !important; /* Becomes visible */
+    transition-delay: 15s; /* Only displays after hovering for at least 15 seconds! */
 }
