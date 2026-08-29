@@ -6,7 +6,8 @@
 }
 
 :root {
-    --bg-dark-purple: #0A0314;
+    --bg-white: #FFFFFF;
+    --bg-light-cream: #FAF9F6;
     --primary-purple: #3C096C;
     --accent-purple: #7B2CBF;
     --hover-purple: #9D4EDD;
@@ -14,13 +15,12 @@
     --luxury-gold: #C5A059;
     --bright-gold: #D4AF37;
     --light-gold: #F4E3B1;
-    --glow-gold: rgba(212, 175, 55, 0.4);
+    --border-gold: rgba(212, 175, 55, 0.4);
     
-    --text-dark: #231F2A;
-    --text-light: #F4F1F8;
-    --text-muted: #6E6578;
-    --border-light: #E2D9E8;
-    --shadow-premium: 0 25px 60px rgba(0, 0, 0, 0.45);
+    --text-dark: #2A2438;
+    --text-muted: #726A7A;
+    --border-light: #E5DFEC;
+    --shadow-premium: 0 20px 45px rgba(60, 9, 108, 0.06);
 }
 
 body {
@@ -29,18 +29,22 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background-color: var(--bg-dark-purple);
+    /* Bright White Background with subtle gradient */
+    background: 
+        radial-gradient(circle at top left, rgba(123, 44, 191, 0.06), transparent 40%),
+        radial-gradient(circle at bottom right, rgba(212, 175, 55, 0.06), transparent 40%),
+        var(--bg-light-cream);
     position: relative;
     overflow-x: hidden;
 }
 
-/* Floating Magical Orbs Animation - Made much brighter and more dynamic! */
+/* Floating Magical Orbs Animation - Lower opacity for light theme */
 .orb {
     position: fixed;
     border-radius: 50%;
-    filter: blur(70px);
+    filter: blur(80px);
     z-index: -1;
-    opacity: 0.55;
+    opacity: 0.22; /* Subtly soft glow on white background */
     pointer-events: none;
 }
 
@@ -73,17 +77,17 @@ body {
 
 @keyframes floatOrb1 {
     0% { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(120px, 60px) scale(1.2); }
+    100% { transform: translate(100px, 50px) scale(1.15); }
 }
 
 @keyframes floatOrb2 {
     0% { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(-100px, -80px) scale(1.15); }
+    100% { transform: translate(-80px, -60px) scale(1.1); }
 }
 
 @keyframes floatOrb3 {
     0% { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(80px, -50px) scale(1.25); }
+    100% { transform: translate(60px, -40px) scale(1.2); }
 }
 
 /* Header & Logo */
@@ -92,8 +96,8 @@ header {
     padding: 24px 0;
     display: flex;
     justify-content: center;
-    border-bottom: 1px solid rgba(212, 175, 55, 0.15);
-    background: rgba(10, 3, 20, 0.85);
+    border-bottom: 1.5px solid rgba(212, 175, 55, 0.2);
+    background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(15px);
     z-index: 10;
 }
@@ -106,25 +110,26 @@ header {
     justify-content: center;
 }
 
-/* Brand Text Logo Shimmer */
+/* Brand Text Logo Shimmer - Elegant Purple & Gold */
 .logo-text {
     font-family: 'Cinzel', serif;
     font-size: 26px;
     font-weight: 700;
-    color: var(--bright-gold);
+    color: var(--primary-purple);
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    text-shadow: 0 0 1px rgba(212, 175, 55, 0.2);
     animation: logoGlow 3s infinite alternate ease-in-out;
 }
 
 @keyframes logoGlow {
     0% {
-        text-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+        color: var(--primary-purple);
+        text-shadow: 0 0 4px rgba(212, 175, 55, 0.3);
     }
     100% {
-        text-shadow: 0 0 20px rgba(212, 175, 55, 0.95), 0 0 6px rgba(255, 255, 255, 0.6);
-        color: #FFF;
+        color: var(--luxury-gold);
+        text-shadow: 0 0 8px rgba(123, 44, 191, 0.4);
     }
 }
 
@@ -135,18 +140,18 @@ header {
     right: 20px;
     z-index: 100;
     display: flex;
-    background: rgba(10, 3, 20, 0.85);
+    background: rgba(255, 255, 255, 0.9);
     border: 1.5px solid var(--bright-gold);
     border-radius: 20px;
     padding: 3px;
-    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);
     backdrop-filter: blur(5px);
 }
 
 .lang-btn {
     border: none;
     background: transparent;
-    color: var(--text-light);
+    color: var(--primary-purple);
     font-size: 12px;
     font-weight: 700;
     padding: 6px 14px;
@@ -156,13 +161,13 @@ header {
 }
 
 .lang-btn.active {
-    background: var(--bright-gold);
-    color: var(--primary-purple);
-    box-shadow: 0 0 10px var(--bright-gold);
+    background: linear-gradient(135deg, var(--accent-purple) 0%, var(--primary-purple) 100%);
+    color: #FFFFFF;
+    box-shadow: 0 2px 8px rgba(60, 9, 108, 0.25);
 }
 
 .lang-btn:hover:not(.active) {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(123, 44, 191, 0.08);
 }
 
 /* Main Layout & Unconventional Card */
@@ -181,9 +186,10 @@ main {
     max-width: 720px;
     border-radius: 16px;
     padding: 2.5px;
-    background: linear-gradient(135deg, var(--accent-purple), var(--bright-gold), var(--primary-purple), var(--bright-gold));
+    background: linear-gradient(135deg, var(--accent-purple), var(--bright-gold), var(--bg-white), var(--bright-gold));
     background-size: 300% 300%;
     animation: borderGradient 8s infinite alternate ease-in-out;
+    box-shadow: var(--shadow-premium);
 }
 
 @keyframes borderGradient {
@@ -192,14 +198,12 @@ main {
     100% { background-position: 0% 50%; }
 }
 
-/* Glassmorphism Form Card */
+/* Glassmorphism Form Card - Pure White layout inside */
 .form-card {
-    background: rgba(255, 255, 255, 0.96);
-    backdrop-filter: blur(15px);
+    background: var(--bg-white);
     width: 100%;
     padding: 48px 40px;
     border-radius: 14px;
-    box-shadow: var(--shadow-premium);
 }
 
 h1 {
@@ -249,7 +253,7 @@ label {
     margin-bottom: 12px;
 }
 
-/* Inputs and Selects styling */
+/* Inputs and Selects styling - Clean white layout */
 input[type="text"],
 input[type="email"],
 input[type="tel"],
@@ -261,7 +265,7 @@ textarea {
     padding: 12px 16px;
     border: 1.5px solid var(--border-light);
     border-radius: 6px;
-    background: #FCFBFF;
+    background: #FAF8FC;
     font-family: 'DM Sans', sans-serif;
     font-size: 14px;
     color: var(--text-dark);
@@ -280,8 +284,8 @@ textarea:focus {
     background: #FFFFFF;
     transform: translateY(-2px); /* Raises input slightly */
     box-shadow: 
-        0 6px 12px rgba(123, 44, 191, 0.1),
-        0 0 8px rgba(212, 175, 55, 0.4);
+        0 6px 12px rgba(123, 44, 191, 0.08),
+        0 0 8px rgba(212, 175, 55, 0.35);
 }
 
 /* Range Slider */
@@ -297,7 +301,6 @@ input[type="range"] {
     font-weight: 700;
     font-size: 16px;
     margin-left: 6px;
-    text-shadow: 0 0 3px rgba(212, 175, 55, 0.3);
 }
 
 /* Checkbox & Radio Containers */
@@ -306,7 +309,7 @@ input[type="range"] {
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
     padding: 14px;
-    background: #F8F5FB;
+    background: #FAF9FC;
     border-radius: 8px;
     border: 1.5px solid var(--border-light);
 }
@@ -350,8 +353,8 @@ input[type="range"] {
     gap: 10px;
     margin-top: 32px;
     padding: 12px;
-    background: #FFFDF4;
-    border: 1px solid rgba(212, 175, 55, 0.35);
+    background: #FFFDF7;
+    border: 1.5px solid rgba(212, 175, 55, 0.25);
     border-radius: 6px;
 }
 
@@ -394,15 +397,15 @@ button {
     background: linear-gradient(135deg, var(--accent-purple) 0%, var(--primary-purple) 100%);
     color: #FFFFFF;
     border: 2px solid var(--bright-gold);
-    box-shadow: 0 4px 15px rgba(123, 44, 191, 0.25);
+    box-shadow: 0 4px 15px rgba(123, 44, 191, 0.15);
 }
 
 .btn-submit:hover {
     background: linear-gradient(135deg, var(--hover-purple) 0%, var(--accent-purple) 100%);
     border-color: #FFD700;
     box-shadow: 
-        0 8px 25px rgba(123, 44, 191, 0.4),
-        0 0 15px var(--bright-gold);
+        0 8px 25px rgba(123, 44, 191, 0.3),
+        0 0 12px var(--bright-gold);
     transform: translateY(-3px);
 }
 
@@ -426,8 +429,8 @@ button:active {
 /* Footer styling */
 footer {
     padding: 24px 0;
-    border-top: 1px solid rgba(212, 175, 55, 0.15);
-    background: rgba(10, 3, 20, 0.85);
+    border-top: 1.5px solid rgba(212, 175, 55, 0.2);
+    background: rgba(255, 255, 255, 0.85);
     display: flex;
     justify-content: center;
     z-index: 10;
@@ -442,6 +445,5 @@ footer {
 
 footer p {
     font-size: 13px;
-    color: var(--text-light);
-    opacity: 0.75;
+    color: var(--text-muted);
 }
