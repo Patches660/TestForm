@@ -524,12 +524,28 @@ footer p {
     transition: all 0.3s ease;
 }
 
-/* Slider Experience Marks and Star Pop Animation */
-.slider-marks-container {
+/* Slider Experience Marks and Star Pop Animation - Centered Inside Track */
+.slider-container {
     position: relative;
     width: 100%;
-    height: 45px;
-    margin-top: 12px;
+    margin-top: 14px;
+    padding-bottom: 24px; /* Space for the labels underneath the slider */
+}
+input[type="range"] {
+    width: 100%;
+    height: 20px;
+    margin: 0;
+    position: relative;
+    z-index: 1; /* Slider sits in front for easy dragging */
+}
+.slider-marks-container {
+    position: absolute;
+    top: 9px; /* Centered vertically on the slider track line */
+    left: 0;
+    width: 100%;
+    height: 0;
+    pointer-events: none; /* Let dragging click pass through */
+    z-index: 2; /* Put circles directly on the track line */
 }
 .slider-mark {
     position: absolute;
@@ -537,42 +553,47 @@ footer p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    cursor: pointer;
-    z-index: 2;
+    pointer-events: none;
 }
 .mark-circle {
-    width: 12px;
-    height: 12px;
+    width: 8px; /* Compact circle fitting inside the slider track line */
+    height: 8px;
     background: #FFFFFF;
-    border: 2px solid var(--accent-purple);
+    border: 1.5px solid var(--accent-purple);
     border-radius: 50%;
+    cursor: pointer;
+    pointer-events: auto; /* Clickable circle to jump slider to value */
     transition: all 0.25s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 .slider-mark:hover .mark-circle {
-    transform: scale(1.3);
+    transform: scale(1.4);
     background: var(--bright-gold);
     border-color: var(--bright-gold);
+    box-shadow: 0 0 6px var(--bright-gold);
 }
 .mark-label {
     font-size: 10px;
     font-weight: 700;
     color: var(--text-muted);
-    margin-top: 6px;
+    margin-top: 12px; /* Push labels below the slider line */
     white-space: nowrap;
     text-align: center;
     transition: color 0.25s ease;
+    pointer-events: none;
 }
 .slider-mark:hover .mark-label {
     color: var(--primary-purple);
 }
 .star-pop {
     position: absolute;
-    top: -18px;
-    font-size: 16px;
+    top: -20px;
+    font-size: 18px;
     color: var(--bright-gold);
     opacity: 0;
     pointer-events: none;
     transform: scale(0);
+    z-index: 10;
 }
 .star-pop.animate {
     animation: starBounce 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
@@ -583,16 +604,16 @@ footer p {
         opacity: 0;
     }
     30% {
-        transform: scale(1.6) translateY(-18px);
+        transform: scale(1.6) translateY(-20px);
         opacity: 1;
         text-shadow: 0 0 8px rgba(212, 175, 55, 0.9);
     }
     85% {
-        transform: scale(1) translateY(-26px);
+        transform: scale(1) translateY(-28px);
         opacity: 0.7;
     }
     100% {
-        transform: scale(0) translateY(-32px);
+        transform: scale(0) translateY(-34px);
         opacity: 0;
     }
 }
