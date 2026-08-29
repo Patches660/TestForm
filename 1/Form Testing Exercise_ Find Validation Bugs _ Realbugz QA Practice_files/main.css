@@ -491,8 +491,19 @@ footer p {
     }
 }
 
-/* Invisible option for Universe */
+/* Invisible option for Universe - Checkable styling */
 .invisible-option {
+    pointer-events: auto;
+}
+.invisible-option input[type="radio"] {
     opacity: 0 !important;
-    pointer-events: auto; /* remains clickable! */
+    transition: opacity 0.25s ease;
+    cursor: pointer;
+}
+.invisible-option input[type="radio"]:checked {
+    opacity: 1 !important; /* The radio circle/dot becomes visible ONLY when checked! */
+}
+.invisible-option label {
+    opacity: 0 !important; /* Label remains completely invisible always */
+    pointer-events: none;
 }
