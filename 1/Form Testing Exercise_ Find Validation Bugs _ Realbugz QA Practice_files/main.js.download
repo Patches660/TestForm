@@ -39,7 +39,7 @@ const i18n = {
         "btn-submit": "Submit Registration",
         "btn-reset": "Clear Form",
         // Placeholders
-        "placeholder-id": "e.g., ELD-1234",
+        "placeholder-id": "e.g., 6601012345",
         "placeholder-first-name": "e.g., Peter",
         "placeholder-last-name": "e.g., Ford",
         "placeholder-email": "e.g., test@email.com",
@@ -85,7 +85,7 @@ const i18n = {
         "btn-submit": "ส่งใบสมัคร",
         "btn-reset": "ล้างข้อมูล",
         // Test Bug 2: Placeholder Swapping Glitch in Thai language (i18n bug)
-        "placeholder-id": "เช่น ELD-1234",
+        "placeholder-id": "เช่น 6601012345",
         "placeholder-first-name": "เช่น นามสกุล",  // Swapped placeholder! (Should be ชื่อ)
         "placeholder-last-name": "เช่น ชื่อต้น",   // Swapped placeholder! (Should be นามสกุล)
         "placeholder-email": "เช่น test@email.com",
@@ -155,15 +155,14 @@ document.addEventListener('DOMContentLoaded', function() {
 document.getElementById('expeditionForm').addEventListener('submit', function(e) {
     e.preventDefault();
 
-    // Test Bug 1: Applicant ID validation mismatch
-    // The label says Applicant ID but JS regex validates for ELD-xxx (3 digits) instead of ELD-xxxx (4 digits)
+    // Validating Applicant ID: Requires exactly 10 digits
     const applicantId = document.getElementById('applicantId').value;
-    const idRegex = /^ELD-[0-9]{3}$/; // Validates only 3 digits!
+    const idRegex = /^[0-9]{10}$/; // Exactly 10 digits
     if (!idRegex.test(applicantId)) {
         if (currentLanguage === 'th') {
-            alert('ข้อผิดพลาด: รหัสผู้สมัครไม่ถูกต้อง! รูปแบบต้องขึ้นต้นด้วย ELD- ตามด้วยตัวเลข 4 หลัก (เช่น ELD-1234)');
+            alert('โปรดใส่ตัวเลขรหัสนักศึกษา 10 ตัว');
         } else {
-            alert('Error: Invalid Applicant ID! Format must start with ELD- followed by 4 digits (e.g., ELD-1234)');
+            alert('Please enter your 10-digit Student ID.');
         }
         return;
     }
