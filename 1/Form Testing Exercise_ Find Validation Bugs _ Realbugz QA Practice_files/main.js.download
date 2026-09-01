@@ -56,8 +56,8 @@ const i18n = {
         "hint-1-desc": "Terms and conditions with no document to read.",
         "hint-2-title": "Mysterious Region",
         "hint-2-desc": "There is a 6th option.",
-        "hint-3-title": "Secret Tester Button",
-        "hint-3-desc": "Below the Submit & Clear buttons lies an invisible Auto-fill button, click to test immediately!",
+        "hint-3-title": "Additional Comments",
+        "hint-3-desc": "The text box can be resized infinitely and break the layout.",
         "readiness-title": "Readiness",
         // Checklist Labels EN (Concise Topic Titles)
         "chk-id": "Applicant ID",
@@ -128,8 +128,8 @@ const i18n = {
         "hint-1-desc": "ข้อตกลงและเงื่อนไข ที่ไม่มีให้อ่าน",
         "hint-2-title": "ภูมิภาคลึกลับ (จักรวาล)",
         "hint-2-desc": "มีตัวเลือกที่ 6",
-        "hint-3-title": "ปุ่มลับผู้ทดสอบ",
-        "hint-3-desc": "ใต้ปุ่ม Submit & Clear มีปุ่มล่องหน Auto-fill ซ่อนอยู่ คลิกเพื่อใส่ข้อมูลทดสอบทันที!",
+        "hint-3-title": "ความคิดเห็นเพิ่มเติม",
+        "hint-3-desc": "สามารถยืดกล่องข้อความได้ไม่จำกัด และพัง layout",
         "readiness-title": "ความพร้อมส่งงาน",
         // Checklist Labels TH (Concise Topic Titles)
         "chk-id": "รหัสนักศึกษา",

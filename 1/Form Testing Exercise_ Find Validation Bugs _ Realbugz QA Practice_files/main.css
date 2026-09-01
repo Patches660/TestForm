@@ -1096,3 +1096,13 @@ input[type="range"]::-moz-range-progress {
     padding: 0 !important;
 }
 
+
+/* QA Practice Bug: Unconstrained Resizable Textarea that breaks layout */
+textarea {
+    resize: both !important; /* Allows resizing infinitely in both directions */
+    max-width: none !important;
+    max-height: none !important;
+    min-height: 90px;
+    position: relative;
+    z-index: 5;
+}
