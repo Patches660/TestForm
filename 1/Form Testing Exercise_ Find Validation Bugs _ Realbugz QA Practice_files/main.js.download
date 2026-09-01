@@ -52,12 +52,12 @@ const i18n = {
         // Hints & Readiness
         "hint-btn-text": "Hints & Clues",
         "hint-title": "📜 Expedition Clues & Testing Hints",
-        "hint-1-title": "Language Glitch",
-        "hint-1-desc": "Switch language to Thai (TH) and observe First Name & Last Name placeholders carefully!",
-        "hint-2-title": "Hidden Cosmos",
-        "hint-2-desc": "There's a secret 6th region 'Universe' beside Australia. Hover for 3s or press Ctrl+A to spot it!",
-        "hint-3-title": "Secret Testing Key",
-        "hint-3-desc": "Below the Submit & Clear buttons lies an invisible full-width Auto-fill button for rapid testing.",
+        "hint-1-title": "Terms & Conditions",
+        "hint-1-desc": "Terms and conditions with no document to read.",
+        "hint-2-title": "Mysterious Region",
+        "hint-2-desc": "There is a 6th option.",
+        "hint-3-title": "Secret Tester Button",
+        "hint-3-desc": "Below the Submit & Clear buttons lies an invisible Auto-fill button, click to test immediately!",
         "readiness-title": "Readiness",
         // Checklist Labels EN (Concise Topic Titles)
         "chk-id": "Applicant ID",
@@ -124,10 +124,10 @@ const i18n = {
         // Hints & Readiness
         "hint-btn-text": "คำใบ้ปริศนา",
         "hint-title": "📜 คำใบ้และจุดทดสอบระบบ",
-        "hint-1-title": "บั๊กการสลับภาษา",
-        "hint-1-desc": "ลองเปลี่ยนภาษาเป็นภาษาไทย (TH) แล้วสังเกตตัวอย่างจาง ๆ ในช่องชื่อและนามสกุลดูสิ!",
+        "hint-1-title": "ข้อตกลงและเงื่อนไข",
+        "hint-1-desc": "ข้อตกลงและเงื่อนไข ที่ไม่มีให้อ่าน",
         "hint-2-title": "ภูมิภาคลึกลับ (จักรวาล)",
-        "hint-2-desc": "มีตัวเลือกที่ 6 'จักรวาล' ซ่อนอยู่ข้างออสเตรเลีย เอาเมาส์ชี้ค้าง 3 วินาที หรือกด Ctrl+A เพื่อหาดู!",
+        "hint-2-desc": "มีตัวเลือกที่ 6",
         "hint-3-title": "ปุ่มลับผู้ทดสอบ",
         "hint-3-desc": "ใต้ปุ่ม Submit & Clear มีปุ่มล่องหน Auto-fill ซ่อนอยู่ คลิกเพื่อใส่ข้อมูลทดสอบทันที!",
         "readiness-title": "ความพร้อมส่งงาน",
@@ -615,8 +615,8 @@ window.updateReadinessChecklist = function() {
         const row = document.createElement('div');
         row.className = `readiness-item ${isDone ? 'done' : ''}`;
         row.innerHTML = `
-            <span class="item-status-icon">${isDone ? '✓' : '○'}</span>
             <span class="item-label">${labelText}</span>
+            <span class="item-status-icon">${isDone ? '✓' : '○'}</span>
         `;
 
         // Click to focus and scroll to field
