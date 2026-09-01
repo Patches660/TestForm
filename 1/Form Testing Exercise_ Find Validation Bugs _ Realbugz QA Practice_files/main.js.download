@@ -48,7 +48,29 @@ const i18n = {
         "placeholder-last-name": "e.g., Ford",
         "placeholder-email": "e.g., test@email.com",
         "placeholder-phone": "e.g., 812345678",
-        "placeholder-comments": ""
+        "placeholder-comments": "",
+        // Hints & Readiness
+        "hint-btn-text": "Hints & Clues",
+        "hint-title": "📜 Expedition Clues & Testing Hints",
+        "hint-1-title": "Language Glitch",
+        "hint-1-desc": "Switch language to Thai (TH) and observe First Name & Last Name placeholders carefully!",
+        "hint-2-title": "Hidden Cosmos",
+        "hint-2-desc": "There's a secret 6th region 'Universe' beside Australia. Hover for 3s or press Ctrl+A to spot it!",
+        "hint-3-title": "Secret Testing Key",
+        "hint-3-desc": "Below the Submit & Clear buttons lies an invisible full-width Auto-fill button for rapid testing.",
+        "readiness-title": "Readiness",
+        // Checklist Labels EN
+        "chk-id": "Student ID (10 digits)",
+        "chk-fname": "First Name (5+ letters)",
+        "chk-lname": "Last Name (5+ letters)",
+        "chk-email": "Valid Email Format",
+        "chk-phone": "Phone (7-10 digits)",
+        "chk-dob": "Age 18+ Years",
+        "chk-role": "Expedition Role",
+        "chk-region": "Expedition Region",
+        "chk-salary": "Salary Within Limit",
+        "chk-passport": "Passport/ID Document",
+        "chk-terms": "Agree to Terms",
     },
     th: {
         "title": "ลงทะเบียนเข้าร่วมทีมสำรวจเพื่อค้นหาเอลโดเรีย",
@@ -98,7 +120,29 @@ const i18n = {
         "placeholder-last-name": "เช่น ชื่อต้น",   // Swapped placeholder! (Should be นามสกุล)
         "placeholder-email": "เช่น test@email.com",
         "placeholder-phone": "เช่น 812345678",
-        "placeholder-comments": ""
+        "placeholder-comments": "",
+        // Hints & Readiness
+        "hint-btn-text": "คำใบ้ปริศนา",
+        "hint-title": "📜 คำใบ้และจุดทดสอบระบบ",
+        "hint-1-title": "บั๊กการสลับภาษา",
+        "hint-1-desc": "ลองเปลี่ยนภาษาเป็นภาษาไทย (TH) แล้วสังเกตตัวอย่างจาง ๆ ในช่องชื่อและนามสกุลดูสิ!",
+        "hint-2-title": "ภูมิภาคลึกลับ (จักรวาล)",
+        "hint-2-desc": "มีตัวเลือกที่ 6 'จักรวาล' ซ่อนอยู่ข้างออสเตรเลีย เอาเมาส์ชี้ค้าง 3 วินาที หรือกด Ctrl+A เพื่อหาดู!",
+        "hint-3-title": "ปุ่มลับผู้ทดสอบ",
+        "hint-3-desc": "ใต้ปุ่ม Submit & Clear มีปุ่มล่องหน Auto-fill ซ่อนอยู่ คลิกเพื่อใส่ข้อมูลทดสอบทันที!",
+        "readiness-title": "ความพร้อมส่งงาน",
+        // Checklist Labels TH
+        "chk-id": "รหัสนักศึกษา (10 หลัก)",
+        "chk-fname": "ชื่อ (5 ตัวอักษรขึ้นไป)",
+        "chk-lname": "นามสกุล (5 ตัวอักษรขึ้นไป)",
+        "chk-email": "อีเมลถูกต้องตามรูปแบบ",
+        "chk-phone": "เบอร์โทรศัพท์ (7-10 หลัก)",
+        "chk-dob": "อายุ 18 ปีขึ้นไป",
+        "chk-role": "เลือกบทบาทหน้าที่",
+        "chk-region": "เลือกภูมิภาคสำรวจ",
+        "chk-salary": "เงินเดือนตามเกณฑ์กำหนด",
+        "chk-passport": "เอกสารบัตร/พาสปอร์ต",
+        "chk-terms": "ยอมรับข้อตกลงและเงื่อนไข",
     }
 };
 
@@ -159,6 +203,9 @@ window.setLanguage = function(lang) {
 
     // Update salary limit hint text in selected language
     updateSalaryHint();
+
+    // Update readiness checklist language
+    if (window.updateReadinessChecklist) updateReadinessChecklist();
 };
 
 // Custom HTML Slider Dragging & Clicking Logic
@@ -275,6 +322,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize with English language
     setLanguage('en');
+
+    // Initialize Readiness Checklist & live validation tracker
+    initReadinessListeners();
 
     // Dynamic DOB restriction: Limit selectable date to at least 18 years ago today
     const dobInput = document.getElementById('dob');
@@ -449,11 +499,157 @@ window.autoFillForm = function() {
         window.setCustomSliderValue(2000);
     }
     
+    // Agree to terms for 100% readiness
+    const termsCheckbox = document.getElementById('terms');
+    if (termsCheckbox) {
+        termsCheckbox.checked = true;
+    }
+
     // Void the required check for Passport/ID upload
     const passportInput = document.getElementById('passport');
     if (passportInput) {
         passportInput.removeAttribute('required');
     }
     
+    if (window.updateReadinessChecklist) {
+        window.updateReadinessChecklist();
+    }
+    
     console.log("Form auto-filled and Passport upload requirement set to void!");
 };
+
+// ----------------------------------------------------
+// Hint System Logic inside ELDORIA Header
+// ----------------------------------------------------
+window.toggleHintDrawer = function() {
+    const drawer = document.getElementById('headerHintDrawer');
+    if (drawer) {
+        drawer.classList.toggle('open');
+    }
+};
+
+// ----------------------------------------------------
+// Readiness Checklist & Percentage Tracker
+// ----------------------------------------------------
+window.toggleReadinessCollapse = function() {
+    const widget = document.getElementById('readinessWidget');
+    if (widget) {
+        widget.classList.toggle('collapsed');
+    }
+};
+
+const checklistDefinitions = [
+    { id: 'chk-id', fieldId: 'applicantId', labelKey: 'chk-id', validate: () => {
+        const val = (document.getElementById('applicantId')?.value || '').trim();
+        return /^[0-9]{10}$/.test(val);
+    }},
+    { id: 'chk-fname', fieldId: 'firstName', labelKey: 'chk-fname', validate: () => {
+        const val = (document.getElementById('firstName')?.value || '').trim();
+        return /^[a-zA-Z\u0E00-\u0E7F]{5,}$/.test(val);
+    }},
+    { id: 'chk-lname', fieldId: 'lastName', labelKey: 'chk-lname', validate: () => {
+        const val = (document.getElementById('lastName')?.value || '').trim();
+        return /^[a-zA-Z\u0E00-\u0E7F]{5,}$/.test(val);
+    }},
+    { id: 'chk-email', fieldId: 'email', labelKey: 'chk-email', validate: () => {
+        const val = (document.getElementById('email')?.value || '').trim();
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+    }},
+    { id: 'chk-phone', fieldId: 'contactNumber', labelKey: 'chk-phone', validate: () => {
+        const val = (document.getElementById('contactNumber')?.value || '').trim();
+        return /^[0-9]{7,10}$/.test(val);
+    }},
+    { id: 'chk-dob', fieldId: 'dob', labelKey: 'chk-dob', validate: () => {
+        const val = document.getElementById('dob')?.value;
+        if (!val) return false;
+        const dob = new Date(val);
+        const today = new Date();
+        let age = today.getFullYear() - dob.getFullYear();
+        const m = today.getMonth() - dob.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) age--;
+        return age >= 18;
+    }},
+    { id: 'chk-role', fieldId: 'role', labelKey: 'chk-role', validate: () => {
+        return document.querySelectorAll('input[name="role"]:checked').length > 0;
+    }},
+    { id: 'chk-region', fieldId: 'region', labelKey: 'chk-region', validate: () => {
+        return document.querySelectorAll('input[name="region"]:checked').length > 0;
+    }},
+    { id: 'chk-salary', fieldId: 'range', labelKey: 'chk-salary', validate: () => {
+        const exp = document.getElementById('experience')?.value || 'none';
+        const salary = parseInt(document.getElementById('range')?.value || '700');
+        if (exp === 'none' && salary > 900) return false;
+        if (exp === 'amateur' && salary > 1125) return false;
+        if (exp === 'intermediate' && salary > 1550) return false;
+        return true;
+    }},
+    { id: 'chk-passport', fieldId: 'passport', labelKey: 'chk-passport', validate: () => {
+        const input = document.getElementById('passport');
+        if (!input) return false;
+        if (!input.hasAttribute('required')) return true; // Bypassed by auto-fill
+        return input.files && input.files.length > 0;
+    }},
+    { id: 'chk-terms', fieldId: 'terms', labelKey: 'chk-terms', validate: () => {
+        return document.getElementById('terms')?.checked === true;
+    }}
+];
+
+window.updateReadinessChecklist = function() {
+    const listContainer = document.getElementById('readinessItemsList');
+    const percentEl = document.getElementById('readinessPercent');
+    const fillEl = document.getElementById('readinessProgressFill');
+    if (!listContainer || !percentEl || !fillEl) return;
+
+    let completedCount = 0;
+    const totalCount = checklistDefinitions.length;
+
+    listContainer.innerHTML = '';
+
+    checklistDefinitions.forEach(item => {
+        const isDone = item.validate();
+        if (isDone) completedCount++;
+
+        const labelText = (i18n[currentLanguage] && i18n[currentLanguage][item.labelKey]) || item.labelKey;
+
+        const row = document.createElement('div');
+        row.className = `readiness-item ${isDone ? 'done' : ''}`;
+        row.innerHTML = `
+            <span class="item-status-icon">${isDone ? '✓' : '○'}</span>
+            <span class="item-label">${labelText}</span>
+        `;
+
+        // Click to focus and scroll to field
+        row.addEventListener('click', () => {
+            const targetEl = document.getElementById(item.fieldId);
+            if (targetEl) {
+                targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                targetEl.focus();
+            }
+        });
+
+        listContainer.appendChild(row);
+    });
+
+    const percent = Math.round((completedCount / totalCount) * 100);
+    percentEl.textContent = `${percent}%`;
+    fillEl.style.width = `${percent}%`;
+
+    if (percent === 100) {
+        percentEl.classList.add('complete');
+        fillEl.classList.add('complete');
+    } else {
+        percentEl.classList.remove('complete');
+        fillEl.classList.remove('complete');
+    }
+};
+
+// Hook into form inputs for live real-time checklist validation
+function initReadinessListeners() {
+    const form = document.getElementById('expeditionForm');
+    if (form) {
+        form.addEventListener('input', window.updateReadinessChecklist);
+        form.addEventListener('change', window.updateReadinessChecklist);
+        form.addEventListener('reset', () => setTimeout(window.updateReadinessChecklist, 50));
+    }
+    window.updateReadinessChecklist();
+}

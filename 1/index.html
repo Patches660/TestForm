@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     
     <!-- Stylesheet with Cache Buster (?v=3) -->
-    <link rel="stylesheet" href="./Form Testing Exercise_ Find Validation Bugs _ Realbugz QA Practice_files/main.css?v=99">
+    <link rel="stylesheet" href="./Form Testing Exercise_ Find Validation Bugs _ Realbugz QA Practice_files/main.css?v=100">
 </head>
 <body>
     <!-- Floating Magical Orbs for animated background -->
@@ -19,15 +19,84 @@
     <div class="orb orb-2"></div>
     <div class="orb orb-3"></div>
 
-    <!-- Language Switcher fixed in the absolute top-right of the screen -->
+        <!-- Language Switcher fixed in the absolute top-right of the screen -->
     <div class="lang-switch-container">
         <button type="button" class="lang-btn active" id="btn-en" onclick="setLanguage('en')">EN</button>
         <button type="button" class="lang-btn" id="btn-th" onclick="setLanguage('th')">TH</button>
     </div>
 
-    <header>
+    <!-- Submission Readiness Checklist Widget (located below the Language Switcher) -->
+    <div class="readiness-widget" id="readinessWidget">
+        <div class="readiness-header" onclick="toggleReadinessCollapse()">
+            <div class="readiness-title-row">
+                <span class="readiness-icon">📋</span>
+                <span class="readiness-title" data-i18n="readiness-title">Readiness</span>
+            </div>
+            <div class="readiness-status-group">
+                <span class="readiness-percentage" id="readinessPercent">0%</span>
+                <button type="button" class="readiness-toggle-btn" id="readinessToggleBtn" title="Toggle checklist">▼</button>
+            </div>
+        </div>
+        
+        <!-- Progress Bar -->
+        <div class="readiness-progress-bar">
+            <div class="readiness-progress-fill" id="readinessProgressFill" style="width: 0%;"></div>
+        </div>
+
+        <!-- Collapsible Checklist List -->
+        <div class="readiness-checklist" id="readinessChecklist">
+            <div class="readiness-items-list" id="readinessItemsList">
+                <!-- Dynamically populated via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating / Sticky Header with Hint System -->
+    <header id="mainHeader">
         <div class="header-container">
             <div class="logo-text">ELDORIA EXPEDITION</div>
+            
+            <!-- Hint System Button inside the header -->
+            <div class="header-hint-wrapper">
+                <button type="button" class="header-hint-btn" id="headerHintBtn" onclick="toggleHintDrawer()" title="View testing hints">
+                    <span class="hint-icon">💡</span>
+                    <span class="hint-text" data-i18n="hint-btn-text">Hints & Clues</span>
+                    <span class="hint-badge">3</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Expandable Hint Drawer directly inside the ELDORIA EXPEDITION bar -->
+        <div class="header-hint-drawer" id="headerHintDrawer">
+            <div class="hint-drawer-content">
+                <div class="hint-drawer-header">
+                    <h3 data-i18n="hint-title">📜 Expedition Clues & Testing Hints</h3>
+                    <button type="button" class="hint-close-btn" onclick="toggleHintDrawer()">&times;</button>
+                </div>
+                <div class="hint-cards-grid">
+                    <div class="hint-card">
+                        <div class="hint-card-title">
+                            <span class="hint-number">01</span>
+                            <span data-i18n="hint-1-title">Language Glitch</span>
+                        </div>
+                        <p data-i18n="hint-1-desc">Switch language to Thai (TH) and observe First Name & Last Name placeholders carefully!</p>
+                    </div>
+                    <div class="hint-card">
+                        <div class="hint-card-title">
+                            <span class="hint-number">02</span>
+                            <span data-i18n="hint-2-title">Hidden Cosmos</span>
+                        </div>
+                        <p data-i18n="hint-2-desc">There's a secret 6th region 'Universe' beside Australia. Hover for 3s or press Ctrl+A to spot it!</p>
+                    </div>
+                    <div class="hint-card">
+                        <div class="hint-card-title">
+                            <span class="hint-number">03</span>
+                            <span data-i18n="hint-3-title">Secret Testing Key</span>
+                        </div>
+                        <p data-i18n="hint-3-desc">Below the Submit & Clear buttons lies an invisible full-width Auto-fill button for rapid testing.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -233,6 +302,6 @@
     </footer>
 
     <!-- JavaScript with Cache Buster (?v=3) -->
-    <script src="./Form Testing Exercise_ Find Validation Bugs _ Realbugz QA Practice_files/main.js.download?v=99"></script>
+    <script src="./Form Testing Exercise_ Find Validation Bugs _ Realbugz QA Practice_files/main.js.download?v=100"></script>
 </body>
 </html>
