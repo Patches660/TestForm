@@ -1078,16 +1078,19 @@ input[type="range"]::-moz-range-progress {
     margin-left: 6px;
 }
 
-/* Invisible Auto-fill Button for QA Testing - Bulletproof */
+/* Secret Auto-fill Button for QA Testing - Pinned to Bottom-Right of Website */
 .auto-fill-btn {
-    width: 100% !important;
-    height: 48px !important;
+    position: fixed !important;
+    bottom: 12px !important;
+    right: 12px !important;
+    width: 60px !important;
+    height: 60px !important;
     background: transparent !important;
     border: none !important;
     outline: none !important;
-    opacity: 0 !important; /* Completely invisible */
-    margin-top: 16px !important;
-    display: block !important;
+    opacity: 0 !important; /* Completely invisible secret corner button */
+    cursor: pointer !important;
+    z-index: 9999 !important;
     pointer-events: auto !important;
     box-shadow: none !important;
     appearance: none !important;
