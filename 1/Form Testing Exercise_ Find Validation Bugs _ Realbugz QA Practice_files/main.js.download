@@ -59,18 +59,18 @@ const i18n = {
         "hint-3-title": "Secret Testing Key",
         "hint-3-desc": "Below the Submit & Clear buttons lies an invisible full-width Auto-fill button for rapid testing.",
         "readiness-title": "Readiness",
-        // Checklist Labels EN
-        "chk-id": "Student ID (10 digits)",
-        "chk-fname": "First Name (5+ letters)",
-        "chk-lname": "Last Name (5+ letters)",
-        "chk-email": "Valid Email Format",
-        "chk-phone": "Phone (7-10 digits)",
-        "chk-dob": "Age 18+ Years",
+        // Checklist Labels EN (Concise Topic Titles)
+        "chk-id": "Applicant ID",
+        "chk-fname": "First Name",
+        "chk-lname": "Last Name",
+        "chk-email": "Email",
+        "chk-phone": "Contact Number",
+        "chk-dob": "Date of Birth",
         "chk-role": "Expedition Role",
         "chk-region": "Expedition Region",
-        "chk-salary": "Salary Within Limit",
-        "chk-passport": "Passport/ID Document",
-        "chk-terms": "Agree to Terms",
+        "chk-salary": "Salary",
+        "chk-passport": "Passport / ID",
+        "chk-terms": "Terms & Conditions",
     },
     th: {
         "title": "ลงทะเบียนเข้าร่วมทีมสำรวจเพื่อค้นหาเอลโดเรีย",
@@ -131,18 +131,18 @@ const i18n = {
         "hint-3-title": "ปุ่มลับผู้ทดสอบ",
         "hint-3-desc": "ใต้ปุ่ม Submit & Clear มีปุ่มล่องหน Auto-fill ซ่อนอยู่ คลิกเพื่อใส่ข้อมูลทดสอบทันที!",
         "readiness-title": "ความพร้อมส่งงาน",
-        // Checklist Labels TH
-        "chk-id": "รหัสนักศึกษา (10 หลัก)",
-        "chk-fname": "ชื่อ (5 ตัวอักษรขึ้นไป)",
-        "chk-lname": "นามสกุล (5 ตัวอักษรขึ้นไป)",
-        "chk-email": "อีเมลถูกต้องตามรูปแบบ",
-        "chk-phone": "เบอร์โทรศัพท์ (7-10 หลัก)",
-        "chk-dob": "อายุ 18 ปีขึ้นไป",
-        "chk-role": "เลือกบทบาทหน้าที่",
-        "chk-region": "เลือกภูมิภาคสำรวจ",
-        "chk-salary": "เงินเดือนตามเกณฑ์กำหนด",
-        "chk-passport": "เอกสารบัตร/พาสปอร์ต",
-        "chk-terms": "ยอมรับข้อตกลงและเงื่อนไข",
+        // Checklist Labels TH (Concise Topic Titles)
+        "chk-id": "รหัสนักศึกษา",
+        "chk-fname": "ชื่อ",
+        "chk-lname": "นามสกุล",
+        "chk-email": "อีเมล",
+        "chk-phone": "เบอร์โทรศัพท์",
+        "chk-dob": "วันเกิด",
+        "chk-role": "บทบาทหน้าที่",
+        "chk-region": "ภูมิภาคสำรวจ",
+        "chk-salary": "เงินเดือน",
+        "chk-passport": "พาสปอร์ต / บัตรประชาชน",
+        "chk-terms": "ยอมรับเงื่อนไข",
     }
 };
 
@@ -521,12 +521,13 @@ window.autoFillForm = function() {
 // ----------------------------------------------------
 // Hint System Logic inside ELDORIA Header
 // ----------------------------------------------------
-window.toggleHintDrawer = function() {
-    const drawer = document.getElementById('headerHintDrawer');
-    if (drawer) {
-        drawer.classList.toggle('open');
+window.toggleHintCollapse = function() {
+    const widget = document.getElementById('hintsWidget');
+    if (widget) {
+        widget.classList.toggle('collapsed');
     }
 };
+window.toggleHintDrawer = window.toggleHintCollapse;
 
 // ----------------------------------------------------
 // Readiness Checklist & Percentage Tracker
