@@ -263,13 +263,12 @@ header {
     background: linear-gradient(90deg, #27ae60, var(--bright-gold));
 }
 
-/* Checklist items container */
+/* Checklist items container - Fully expanded without inner scrolling */
 .readiness-checklist {
-    max-height: 260px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding-right: 2px;
-    transition: max-height 0.35s ease, opacity 0.3s ease;
+    max-height: 800px;
+    overflow: visible;
+    padding-right: 0;
+    transition: max-height 0.4s ease, opacity 0.3s ease;
 }
 
 .readiness-widget.collapsed .readiness-checklist {
